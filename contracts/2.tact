@@ -32,6 +32,6 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    msg.new_message(self.admin, msg.sender, msg.body.data, msg.refs[0]);
+    msg.new_message(self.admin, msg.sender, msg.body.data);
   }
 }
