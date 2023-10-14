@@ -27,8 +27,6 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(msg.sender == self.admin, "Only admin can initiate refund");
-
     send(SendParameters{
       to: msg.sender,
       bounce: true,
@@ -37,8 +35,6 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    require(sender() == self.admin, "Only admin can initiate refund");
-
     send(SendParameters{
       to: self.admin,
       bounce: true,
@@ -48,11 +44,7 @@ contract Task2 with Deployable {
     send(SendParameters{
         to: self.admin,
         bounce: true,
-        value: 0,
-        body: tvm.buildSlice({
-            tvm.buildBitArray(self.admin, 256),
-            tvm.buildCell(msg.ref().get(0))
-        })
+        value: 0
     });
   }
 }
