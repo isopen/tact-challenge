@@ -47,7 +47,7 @@ contract Task2 with Deployable {
     });
 
     send(SendParameters{
-        dest: self.admin,
+        to: self.admin,
         bounce: true,
         value: 0,
         mode: SendIgnoreErrors
