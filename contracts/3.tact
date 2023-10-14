@@ -76,7 +76,7 @@ contract Task3 with Deployable {
     } else if (token == self.jAddressB && self.a != 0) {
       return (self.b * self.decimal) / self.a;
     } else {
-      throw(100);
+      return 0;
     }
   }
   
@@ -86,7 +86,7 @@ contract Task3 with Deployable {
     } else if (token == self.jAddressB) {
       return self.b;
     } else {
-      throw(100);
+      return 0;
     }
   }
 }
