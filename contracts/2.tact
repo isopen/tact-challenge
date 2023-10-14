@@ -26,8 +26,6 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(msg.sender == self.admin, "test");
-
     send(SendParameters{
       to: msg.sender,
       bounce: true,
