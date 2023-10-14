@@ -26,7 +26,7 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(msg.sender == self.admin, "test");
+    require(msg.sender == self.admin, "Only admin can initiate refund");
 
     send(SendParameters{
       to: msg.sender,
@@ -37,6 +37,12 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    
+    send(SendParameters{
+      to: self.admin,
+      bounce: true,
+      value: context().value,
+      mode: SendRemainingValue + SendIgnoreErrors,
+      message: Some(msg.transaction.msg_count)
+    });
   }
 }
