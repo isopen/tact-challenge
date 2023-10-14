@@ -26,6 +26,8 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
+    require(msg.sender == self.admin, "test");
+
     send(SendParameters{
       to: msg.sender,
       bounce: true,
@@ -38,16 +40,8 @@ contract Task2 with Deployable {
     send(SendParameters{
       to: self.admin,
       bounce: true,
-      value: context().value,
+      value: 0,
       mode: SendRemainingValue + SendIgnoreErrors
-    });
-
-    send(SendParameters{
-        dest: self.admin,
-        bounce: true,
-        value: 0,
-        mode: SendIgnoreErrors,
-        body: {\x7F +tvm_cell(msg.src) +tvm_cell(msg.ref)}
     });
   }
 }
