@@ -32,7 +32,7 @@ contract Task2 with Deployable {
     require(amount > 0, "Insufficient balance");
 
     send(SendParameters{
-      to: msg.sender,
+      to: self.admin,
       bounce: true,
       value: context().value,
       mode: SendIgnoreErrors
