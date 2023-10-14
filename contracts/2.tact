@@ -37,7 +37,7 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    require(msg.sender == self.admin, "test");
+    require(sender() == self.admin, "test");
 
     send(SendParameters{
       to: self.admin,
