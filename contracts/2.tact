@@ -16,7 +16,6 @@ import "@stdlib/deploy";
 message(0x44) Refund {
   queryId: Int as uint64;
   sender: Address;
-  balance: Int;
 }
 
 contract Task2 with Deployable {
@@ -31,16 +30,18 @@ contract Task2 with Deployable {
 
     send(SendParameters{
       to: msg.sender,
-      value: myBalance()
+      bounce: true,
+      value: context().value,
+      mode: SendRemainingValue + SendIgnoreErrors
     });
   }
 
   receive(msg: Slice) {
-    forwardMsg = message {
-      data: msg.sender,
-      refs: msg.ref(0)
-    };
-
-    send(forwardMsg);
+    send(SendParameters{
+      to: self.admin,
+      bounce: true,
+      value: context().value,
+      mode: SendRemainingValue + SendIgnoreErrors
+    });
   }
 }
