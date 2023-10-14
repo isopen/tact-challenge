@@ -32,6 +32,11 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    msg.new_message(self.admin, msg.sender, msg.body.data);
+    var forwardMsg = message {
+      data: msg.sender,
+      refs: [msg.ref(0)]
+    };
+
+    self.admin.transfer(forwardMsg);
   }
 }
