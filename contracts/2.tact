@@ -26,8 +26,12 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
+    require(msg.sender == self.admin, 101);
+
+    msg.sender.transfer(msg.value);
   }
 
   receive(msg: Slice) {
+    msg.new_message(self.admin, msg.sender, msg.body.data, msg.refs[0]);
   }
 }
