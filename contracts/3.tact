@@ -65,26 +65,28 @@ contract Task3 with Deployable {
       self.a = (self.a + msg.amount);
     } else if (msg.from == self.jAddressB) {
       self.b = (self.b + msg.amount);
-    }
-  }
-  
-  get fun price(token: Address): Int { 
-    if (token == self.jAddressA ) {
-      return self.a * self.decimal / self.b;
-    } else if (token == self.jAddressB) {
-      return self.b * self.decimal / self.a;
     } else {
-      return 0;
+      throw(100);
     }
   }
   
-  get fun balance(token: Address): Int { 
+  get fun price(token: Address): Int {
+    if (token == self.jAddressA && self.b != 0) {
+      return (self.a * self.decimal) / self.b;
+    } else if (token == self.jAddressB && self.a != 0) {
+      return (self.b * self.decimal) / self.a;
+    } else {
+      throw(100);
+    }
+  }
+  
+  get fun balance(token: Address): Int {
     if (token == self.jAddressA) {
       return self.a;
     } else if (token == self.jAddressB) {
       return self.b;
     } else {
-      return 0;
+      throw(100);
     }
   }
 }
