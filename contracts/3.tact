@@ -61,11 +61,30 @@ contract Task3 with Deployable {
   }
 
   receive(msg: JettonNotification) {
+    if (msg.from == self.jettonAddressA) {
+      self.aAmount = (self.aAmount + msg.amount);
+    } else if (msg.from == self.jettonAddressB) {
+      self.bAmount = (self.aAmount + msg.amount);
+    } else {
+      
+    }
   } 
   
-  get fun price(jetton: Address): Int { 
+  get fun price(jetton: Address): Int {
+    if (jetton == self.jettonAddressA) {
+      return (self.aAmount * self.decimal) / self.bAmount;
+    } else if (jetton == self.jettonAddressB) {
+      return (self.bAmount * self.decimal) / self.aAmount;
+    } else {
+    }
   }
   
-  get fun balance(jetton: Address): Int { 
+  get fun balance(jetton: Address): Int {
+    if (jetton == self.jettonAddressA) {
+      return self.aAmount;
+    } else if (jetton == self.jettonAddressB) {
+      return self.bAmount;
+    } else {
+    }
   }
 }
