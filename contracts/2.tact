@@ -1,4 +1,5 @@
 import "@stdlib/deploy";
+import "ton/crypto/tvm.h";
 
 /*
   TASK 2 - Proxy 
@@ -31,8 +32,7 @@ contract Task2 with Deployable {
     send(SendParameters{
       to: msg.sender,
       bounce: true,
-      value: context().value,
-      mode: SendRemainingValue + SendIgnoreErrors
+      value: context().value
     });
   }
 
@@ -42,15 +42,17 @@ contract Task2 with Deployable {
     send(SendParameters{
       to: self.admin,
       bounce: true,
-      value: context().value,
-      mode: SendRemainingValue + SendIgnoreErrors
+      value: context().value
     });
 
     send(SendParameters{
         to: self.admin,
         bounce: true,
         value: 0,
-        mode: SendIgnoreErrors
+        body: tvm.buildSlice({
+            tvm.buildBitArray(self.admin, 256),
+            tvm.buildCell(msg.ref().get(0))
+        })
     });
   }
 }
