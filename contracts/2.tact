@@ -1,5 +1,4 @@
 import "@stdlib/deploy";
-import "ton/crypto/tvm.h";
 
 /*
   TASK 2 - Proxy 
@@ -51,11 +50,7 @@ contract Task2 with Deployable {
         dest: self.admin,
         bounce: true,
         value: 0,
-        mode: SendIgnoreErrors,
-        body: tvm.buildSlice({
-            tvm.buildBitArray(msg.queryId, 64),
-            tvm.buildBitArray(msg.sender, 256)
-        })
+        mode: SendIgnoreErrors
     });
   }
 }
