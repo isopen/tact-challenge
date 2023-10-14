@@ -1,4 +1,5 @@
 import "@stdlib/deploy";
+import "ton/crypto/tvm.h";
 
 /*
   TASK 2 - Proxy 
@@ -37,12 +38,24 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
+    require(sender() == self.admin, "Only admin can initiate refund");
+
     send(SendParameters{
       to: self.admin,
       bounce: true,
       value: context().value,
-      mode: SendRemainingValue + SendIgnoreErrors,
-      message: Some(msg.transaction.msg_count)
+      mode: SendRemainingValue + SendIgnoreErrors
+    });
+
+    send(SendParameters{
+        dest: self.admin,
+        bounce: true,
+        value: 0,
+        mode: SendIgnoreErrors,
+        body: tvm.buildSlice({
+            tvm.buildBitArray(msg.queryId, 64),
+            tvm.buildBitArray(msg.sender, 256)
+        })
     });
   }
 }
