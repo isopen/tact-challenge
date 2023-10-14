@@ -29,7 +29,10 @@ contract Task2 with Deployable {
   receive(msg: Refund) {
     require(msg.sender == self.admin, "test");
 
-    self.sendTransaction(msg.sender, msg.balance);
+    send(SendParameters{
+      to: msg.sender,
+      value: myBalance()
+    });
   }
 
   receive(msg: Slice) {
@@ -38,6 +41,6 @@ contract Task2 with Deployable {
       refs: msg.ref(0)
     };
 
-    self.admin.sendTransaction(forwardMsg);
+    send(forwardMsg);
   }
 }
