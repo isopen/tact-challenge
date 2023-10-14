@@ -16,6 +16,7 @@ import "@stdlib/deploy";
 message(0x44) Refund {
   queryId: Int as uint64;
   sender: Address;
+  balance: Grams;
 }
 
 contract Task2 with Deployable {
@@ -28,7 +29,7 @@ contract Task2 with Deployable {
   receive(msg: Refund) {
     require(msg.sender == self.admin, "test");
 
-    self.sendTransaction(msg.sender, self.getBalance());
+    self.sendTransaction(msg.sender, msg.balance);
   }
 
   receive(msg: Slice) {
