@@ -1,5 +1,4 @@
 import "@stdlib/deploy";
-import "ton/crypto/tvm.h";
 
 /*
   TASK 2 - Proxy 
