@@ -19,6 +19,7 @@ message(0x44) Refund {
 }
 
 contract Task2 with Deployable {
+  const MinTonForStorage: Int = ton("0.01");
   admin: Address;
 
   init(admin: Address) {
@@ -26,7 +27,9 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(msg.sender == self.admin, "test");
+    require(msg.sender == self.admin, "Only deployer is allowed to withdraw");
+    let amount: Int = myBalance() - context().value - self.MinTonForStorage;
+    require(amount > 0, "Insufficient balance");
 
     send(SendParameters{
       to: msg.sender,
