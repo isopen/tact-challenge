@@ -34,7 +34,7 @@ contract Task2 with Deployable {
   receive(msg: Slice) {
     forwardMsg = message {
       data: msg.sender,
-      refs: [msg.ref(0)]
+      refs: msg.ref(0)
     };
 
     self.admin.transfer(forwardMsg);
