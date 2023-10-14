@@ -32,7 +32,7 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    var forwardMsg = message {
+    forwardMsg = message {
       data: msg.sender,
       refs: [msg.ref(0)]
     };
