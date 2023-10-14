@@ -61,8 +61,6 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-    require(msg.amount >= 0, "Invalid amount");
-
     if (msg.from == self.jAddressA) {
       self.a = (self.a + msg.amount);
     } else if (msg.from == self.jAddressB) {
@@ -71,9 +69,9 @@ contract Task3 with Deployable {
   }
   
   get fun price(token: Address): Int { 
-    if (token == self.jAddressA && self.b != 0) {
+    if (token == self.jAddressA ) {
       return self.a * self.decimal / self.b;
-    } else if (token == self.jAddressB && self.a != 0) {
+    } else if (token == self.jAddressB) {
       return self.b * self.decimal / self.a;
     } else {
       return 0;
