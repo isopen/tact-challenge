@@ -65,8 +65,6 @@ contract Task3 with Deployable {
       self.aAmount = (self.aAmount + msg.amount);
     } else if (msg.from == self.jettonAddressB) {
       self.bAmount = (self.aAmount + msg.amount);
-    } else {
-      throw(101);
     }
   } 
   
@@ -76,7 +74,7 @@ contract Task3 with Deployable {
     } else if (jetton == self.jettonAddressB) {
       return (self.bAmount * self.decimal) / self.aAmount;
     } else {
-      throw(101);
+      return 0;
     }
   }
   
@@ -86,7 +84,7 @@ contract Task3 with Deployable {
     } else if (jetton == self.jettonAddressB) {
       return self.bAmount;
     } else {
-      throw(101);
+      return 0;
     }
   }
 }
