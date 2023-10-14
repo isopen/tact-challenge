@@ -32,8 +32,7 @@ contract Task2 with Deployable {
     require(amount > 0, "Insufficient balance");
 
     send(SendParameters{
-      to: self.admin,
-      bounce: true,
+      to: self.sender,
       value: context().value,
       mode: SendIgnoreErrors
     });
@@ -42,7 +41,6 @@ contract Task2 with Deployable {
   receive(msg: Slice) {
     send(SendParameters{
       to: self.admin,
-      bounce: true,
       value: 0,
       mode: SendRemainingValue + SendIgnoreErrors
     });
