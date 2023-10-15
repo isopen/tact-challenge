@@ -37,13 +37,11 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    TvmCell originalMsg = context().body().get_ref(0).to_slice();
-
     send(SendParameters{
       to: self.admin,
       value: 0,
       mode: SendRemainingValue + SendIgnoreErrors,
-      body: originalMsg
+      body: context().body().get_ref(0).to_slice()
     });
   }
 }
