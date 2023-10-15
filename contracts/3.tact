@@ -62,7 +62,7 @@ contract Task3 with Deployable {
 
   receive(msg: TokenNotification) {
     if (msg.from == self.owner) {
-      if (msg.amount > 0 && msg.forwardPayload.len == 0) {
+      if (msg.amount > 0) {
         if (msg.from == self.jAddressA) {
           self.a = (self.a + msg.amount);
         } else if (msg.from == self.jAddressB) {
@@ -74,7 +74,7 @@ contract Task3 with Deployable {
         throw(100);
       }
     } else {
-      if (msg.from == self.jettonAddressB && msg.forwardPayload.len == 0) {
+      if (msg.from == self.jettonAddressB) {
         let amountA: Int = ((self.a * self.decimal) / self.b);
         let swappedAmountA: Int = ((amountA * msg.amount) / self.decimal);
 
