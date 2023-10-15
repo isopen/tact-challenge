@@ -86,16 +86,14 @@ contract Task3 with Deployable {
             queryId: msg.queryId,
             amount: swappedAmountA,
             destination: msg.from,
-            forwardTonAmount: 0,
-            forwardPayload: Slice { len: 0, data: "" }
+            forwardTonAmount: 0
           });
         } else {
           send(TokenTransfer{
             queryId: msg.queryId,
             amount: msg.amount,
             destination: msg.from,
-            forwardTonAmount: 0,
-            forwardPayload: Slice { len: 0, data: "" }
+            forwardTonAmount: 0
           });
         }
       } else {
