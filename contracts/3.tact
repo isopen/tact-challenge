@@ -74,7 +74,7 @@ contract Task3 with Deployable {
         throw(100);
       }
     } else {
-      if (msg.from == self.jettonAddressB) {
+      if (msg.from == self.jAddressB) {
         let amountA: Int = ((self.a * self.decimal) / self.b);
         let swappedAmountA: Int = ((amountA * msg.amount) / self.decimal);
 
