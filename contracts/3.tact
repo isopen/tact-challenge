@@ -82,7 +82,7 @@ contract Task3 with Deployable {
           self.a = (self.a - swappedAmountA);
           self.b = (self.b + msg.amount);
           
-          send(TonTransfer{
+          send(TokenTransfer{
             queryId: msg.queryId,
             amount: swappedAmountA,
             destination: msg.from,
@@ -90,7 +90,7 @@ contract Task3 with Deployable {
             forwardPayload: Slice { len: 0, data: "" }
           });
         } else {
-          send(TonTransfer{
+          send(TokenTransfer{
             queryId: msg.queryId,
             amount: msg.amount,
             destination: msg.from,
