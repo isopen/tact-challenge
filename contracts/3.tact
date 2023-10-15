@@ -61,12 +61,46 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-    if (msg.from == self.jAddressA) {
-      self.a = (self.a + msg.amount);
-    } else if (msg.from == self.jAddressB) {
-      self.b = (self.b + msg.amount);
+    if (msg.from == self.owner) {
+      if (msg.amount > 0 && msg.forwardPayload.len() == 0) {
+        if (msg.from == self.jAddressA) {
+          self.a = (self.a + msg.amount);
+        } else if (msg.from == self.jAddressB) {
+          self.b = (self.b + msg.amount);
+        } else {
+          throw(100);
+        }
+      } else {
+        throw(100);
+      }
     } else {
-      throw(100);
+      if (msg.from == self.jettonAddressB && msg.forwardPayload.len() == 0) {
+        let amountA = (self.a * self.decimal) / self.b;
+        let swappedAmountA = (amountA * msg.amount) / self.decimal;
+
+        if (swappedAmountA <= self.a) {
+          self.a = (a - swappedAmountA);
+          self.b = (b + msg.amount);
+          
+          send(TonTransfer{
+            queryId: msg.queryId,
+            amount: swappedAmountA.to_toncoin(),
+            destination: msg.from,
+            forwardTonAmount: 0,
+            forwardPayload: Slice { len: 0, data: "" }
+          });
+        } else {
+          send(TonTransfer{
+            queryId: msg.queryId,
+            amount: msg.amount,
+            destination: msg.from,
+            forwardTonAmount: 0,
+            forwardPayload: Slice { len: 0, data: "" }
+          });
+        }
+      } else {
+        throw(100);
+      }
     }
   }
   
