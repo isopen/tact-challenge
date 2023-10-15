@@ -75,8 +75,8 @@ contract Task3 with Deployable {
       }
     } else {
       if (msg.from == self.jettonAddressB && msg.forwardPayload.len() == 0) {
-        let amountA = ((self.a * self.decimal) / self.b);
-        let swappedAmountA = ((amountA * msg.amount) / self.decimal);
+        let amountA: Int = ((self.a * self.decimal) / self.b);
+        let swappedAmountA: Int = ((amountA * msg.amount) / self.decimal);
 
         if (swappedAmountA <= self.a) {
           self.a = (a - swappedAmountA);
