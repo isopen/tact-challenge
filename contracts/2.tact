@@ -26,7 +26,6 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(msg.code == 0x44, "Invalid refund message");
     require(msg.sender == self.admin, "Only deployer is allowed to withdraw");
 
     send(SendParameters{
