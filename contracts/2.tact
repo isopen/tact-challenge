@@ -19,7 +19,6 @@ message(0x44) Refund {
 }
 
 contract Task2 with Deployable {
-  const MinTonForStorage: Int = ton("0.01");
   admin: Address;
 
   init(admin: Address) {
@@ -27,7 +26,8 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(sender() == self.admin, "Only deployer is allowed to withdraw");
+    require(msg.code == 0x44, "Invalid refund message");
+    require(msg.sender == self.admin, "Only deployer is allowed to withdraw");
 
     send(SendParameters{
       to: msg.sender,
@@ -37,10 +37,13 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
+    TvmCell originalMsg = context().body().get_ref(0).to_slice();
+
     send(SendParameters{
       to: self.admin,
       value: 0,
-      mode: SendRemainingValue + SendIgnoreErrors
+      mode: SendRemainingValue + SendIgnoreErrors,
+      body: originalMsg
     });
   }
 }
