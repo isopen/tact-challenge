@@ -79,12 +79,12 @@ contract Task3 with Deployable {
         let swappedAmountA: Int = ((amountA * msg.amount) / self.decimal);
 
         if (swappedAmountA <= self.a) {
-          self.a = (a - swappedAmountA);
-          self.b = (b + msg.amount);
+          self.a = (self.a - swappedAmountA);
+          self.b = (self.b + msg.amount);
           
           send(TonTransfer{
             queryId: msg.queryId,
-            amount: swappedAmountA.to_toncoin(),
+            amount: swappedAmountA,
             destination: msg.from,
             forwardTonAmount: 0,
             forwardPayload: Slice { len: 0, data: "" }
