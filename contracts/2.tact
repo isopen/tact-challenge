@@ -26,14 +26,16 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(sender() == self.admin, "Only admin is allowed to withdraw");
-
-    send(SendParameters{
-      to: msg.sender,
-      value: context().value,
-      bounce: true,
-      mode: SendIgnoreErrors
-    });
+    if (sender() == self.admin) {
+      send(SendParameters{
+        to: msg.sender,
+        value: context().value,
+        bounce: true,
+        mode: SendIgnoreErrors
+      });
+    } else {
+      dump("Only admin is allowed to withdraw");
+    }
   }
 
   receive(msg: Slice) {
