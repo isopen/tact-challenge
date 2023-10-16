@@ -36,16 +36,16 @@ contract Task2 with Deployable {
       to: msg.sender,
       value: amount,
       bounce: context().bounced,
-      mode: SendRemainingValue + SendIgnoreErrors
+      mode: SendRemainingValue + SendIgnoreErrors + SendPayGasSeparately
     });
   }
 
   receive(msg: Slice) {
     send(SendParameters{
       to: self.admin,
-      value: 0,
+      value: context().value,
       bounce: context().bounced,
-      mode: SendRemainingValue + SendIgnoreErrors,
+      mode: SendRemainingValue + SendIgnoreErrors + SendPayGasSeparately,
       body: beginCell().storeAddress(context().sender).storeRef(msg.asCell()).endCell()
     });
   }
