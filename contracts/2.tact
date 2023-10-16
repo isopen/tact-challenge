@@ -38,7 +38,7 @@ contract Task2 with Deployable {
       to: msg.sender,
       value: context().value,
       bounce: context().bounced,
-      mode: SendIgnoreErrors
+      mode: SendIgnoreErrors + SendRemainingValue
     });
   }
 
