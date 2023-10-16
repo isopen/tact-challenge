@@ -61,42 +61,29 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-    if (msg.from == self.owner) {
-      if (msg.amount > 0) {
-        if (msg.from == self.jAddressA) {
-          self.a = (self.a + msg.amount);
-        } else if (msg.from == self.jAddressB) {
-          self.b = (self.b + msg.amount);
+    if (msg.from == self.jAddressA) {
+        self.a = self.a + msg.amount;
+    } else if (msg.from == self.jAddressB) {
+        if ((msg.amount * self.a) > (msg.amount * self.b)) {
+            send(TokenTransfer{
+                amount: msg.amount,
+                destination: msg.from,
+                forwardTonAmount: ton("0.01"),
+                forwardPayload: emptySlice()
+            });
         } else {
-          throw(100);
+            self.b = (self.b - msg.amount);
+            let amountAToSend = (self.a * msg.amount) / (self.b + self.a);
+            self.a = (self.a - amountAToSend);
+            send(TokenTransfer{
+                amount: amountAToSend,
+                destination: msg.from,
+                forwardTonAmount: ton("0.01"),
+                forwardPayload: emptySlice()
+            });
         }
-      } else {
-        throw(100);
-      }
     } else {
-      if (msg.from == self.jAddressB) {
-        let amountA: Int = ((self.a * self.decimal) / self.b);
-        let swappedAmountA: Int = ((amountA * msg.amount) / self.decimal);
-
-        if (swappedAmountA <= self.a) {
-          self.a = (self.a - swappedAmountA);
-          self.b = (self.b + msg.amount);
-          
-          send(SendParameters{
-            to: msg.from,
-            value: swappedAmountA,
-            mode: SendIgnoreErrors
-          });
-        } else {
-          send(SendParameters{
-            to: sender(),
-            value: msg.amount,
-            mode: SendIgnoreErrors
-          });
-        }
-      } else {
         throw(100);
-      }
     }
   }
   
