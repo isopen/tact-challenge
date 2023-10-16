@@ -66,6 +66,7 @@ contract Task3 with Deployable {
     } else if (msg.from == self.jAddressB) {
         if ((msg.amount * self.a) > (msg.amount * self.b)) {
             send(TokenTransfer{
+                queryId: msg.queryId,
                 amount: msg.amount,
                 destination: msg.from,
                 forwardTonAmount: ton("0.01"),
@@ -76,6 +77,7 @@ contract Task3 with Deployable {
             let amountAToSend: Int = (self.a * msg.amount) / (self.b + self.a);
             self.a = (self.a - amountAToSend);
             send(TokenTransfer{
+                queryId: msg.queryId,
                 amount: amountAToSend,
                 destination: msg.from,
                 forwardTonAmount: ton("0.01"),
