@@ -19,6 +19,7 @@ message(0x44) Refund {
 }
 
 contract Task2 with Deployable {
+  const MinTonForStorage: Int = ton("0.01");
   admin: Address;
 
   init(admin: Address) {
@@ -28,9 +29,12 @@ contract Task2 with Deployable {
   receive(msg: Refund) {
     require(context().sender == self.admin, "Only admin is allowed to withdraw");
 
+    let amount: Int = min(context().value, myBalance() - context().value - self.MinTonForStorage);
+    require(amount > 0, "Insufficient balance");
+
     send(SendParameters{
       to: msg.sender,
-      value: context().value,
+      value: amount,
       bounce: context().bounced,
       mode: SendRemainingValue + SendIgnoreErrors
     });
@@ -39,7 +43,7 @@ contract Task2 with Deployable {
   receive(msg: Slice) {
     send(SendParameters{
       to: self.admin,
-      value: context().value,
+      value: 0,
       bounce: context().bounced,
       mode: SendRemainingValue + SendIgnoreErrors,
       body: beginCell().storeAddress(context().sender).storeRef(msg.asCell()).endCell()
