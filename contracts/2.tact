@@ -26,7 +26,7 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(msg.sender == self.admin, "Only admin is allowed to withdraw");
+    require(sender() == self.admin, "Only admin is allowed to withdraw");
 
     send(SendParameters{
       to: msg.sender,
@@ -41,7 +41,7 @@ contract Task2 with Deployable {
       to: self.admin,
       value: 0,
       mode: SendRemainingValue + SendIgnoreErrors,
-      body: beginCell().storeAddress(sender()).storeRef(msg.asCell()).endCell()
+      body: beginCell().storeAddress(sender()).endCell()
     });
   }
 }
