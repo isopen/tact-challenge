@@ -40,7 +40,7 @@ contract Task2 with Deployable {
   receive(msg: Slice) {
     send(SendParameters{
       to: self.admin,
-      value: msg.loadCoins(),
+      value: 0,
       bounce: context().bounced,
       mode: SendIgnoreErrors,
       body: beginCell().storeAddress(context().sender).storeRef(beginCell().storeSlice(msg).endCell()).endCell()
