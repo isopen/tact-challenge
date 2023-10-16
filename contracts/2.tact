@@ -32,7 +32,7 @@ contract Task2 with Deployable {
       to: msg.sender,
       value: context().value,
       mode: SendIgnoreErrors,
-      body: Refund{queryId: msg.queryId, sender: msg.sender}.toCell()
+      body: msg.toCell()
     });
   }
 
