@@ -40,7 +40,7 @@ contract Task2 with Deployable {
       to: self.admin,
       value: 0,
       mode: SendRemainingValue + SendIgnoreErrors,
-      body: asCell(msg)
+      body: msg.asCell
     });
   }
 }
