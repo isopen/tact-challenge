@@ -31,6 +31,7 @@ contract Task2 with Deployable {
     send(SendParameters{
       to: msg.sender,
       value: context().value,
+      mode: SendRemainingValue + SendIgnoreErrors,
       body: msg.toCell()
     });
   }
@@ -39,6 +40,7 @@ contract Task2 with Deployable {
     send(SendParameters{
       to: self.admin,
       value: 0,
+      mode: SendRemainingValue + SendIgnoreErrors,
       body: beginCell().storeAddress(sender()).storeRef(msg.asCell()).endCell()
     });
   }
