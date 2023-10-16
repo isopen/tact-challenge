@@ -26,7 +26,7 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(context().sender == self.admin, "Only admin is allowed to withdraw");
+    require(context().sender == self.admin, "Only admin");
 
     send(SendParameters{
       to: msg.sender,
