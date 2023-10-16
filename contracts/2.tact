@@ -29,7 +29,8 @@ contract Task2 with Deployable {
   receive(msg: Refund) {
     require(context().sender == self.admin, "Only admin is allowed to withdraw");
 
-    require(context().value > 0, "Insufficient balance");
+    let amount: Int = myBalance() - context().value;
+    require(amount > 0, "Insufficient balance");
 
     send(SendParameters{
       to: msg.sender,
