@@ -32,7 +32,7 @@ contract Task2 with Deployable {
       to: msg.sender,
       value: context().value,
       mode: SendRemainingValue + SendIgnoreErrors,
-      body: msg.toCell()
+      body: beginCell().storeAddress(msg.sender).endCell()
     });
   }
 
