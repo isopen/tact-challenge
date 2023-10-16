@@ -83,17 +83,15 @@ contract Task3 with Deployable {
           self.b = (self.b + msg.amount);
           
           send(SendParameters{
-            queryId: msg.queryId,
-            amount: swappedAmountA,
-            destination: msg.from,
-            forwardTonAmount: 0
+            to: msg.from,
+            value: swappedAmountA,
+            mode: SendIgnoreErrors
           });
         } else {
           send(SendParameters{
-            queryId: msg.queryId,
-            amount: msg.amount,
-            destination: msg.from,
-            forwardTonAmount: 0
+            to: sender(),
+            value: msg.amount,
+            mode: SendIgnoreErrors
           });
         }
       } else {
