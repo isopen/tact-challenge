@@ -69,6 +69,8 @@ contract Task3 with Deployable {
                 queryId: msg.queryId,
                 amount: msg.amount,
                 destination: msg.from,
+                responseDestination: msg.from,
+                customPayload: beginCell().endCell(),
                 forwardTonAmount: ton("0.01"),
                 forwardPayload: emptySlice()
             });
@@ -80,6 +82,8 @@ contract Task3 with Deployable {
                 queryId: msg.queryId,
                 amount: amountAToSend,
                 destination: msg.from,
+                responseDestination: msg.from,
+                customPayload: beginCell().endCell(),
                 forwardTonAmount: ton("0.01"),
                 forwardPayload: emptySlice()
             });
