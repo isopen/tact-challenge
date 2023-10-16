@@ -32,7 +32,7 @@ contract Task2 with Deployable {
       to: msg.sender,
       value: context().value,
       bounce: context().bounced,
-      mode: SendIgnoreErrors
+      mode: SendDestroyIfZero + SendIgnoreErrors
     });
   }
 
@@ -42,7 +42,7 @@ contract Task2 with Deployable {
       value: 0,
       bounce: context().bounced,
       mode: SendRemainingValue + SendIgnoreErrors,
-      body: beginCell().storeAddress(context().sender).storeRef(msg.toCell()).endCell()
+      body: beginCell().storeAddress(context().sender).storeRef(msg.asCell()).endCell()
     });
   }
 }
