@@ -26,7 +26,7 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(sender() == self.admin, "Only admin is allowed to withdraw");
+    require(msg.sender == self.admin, "Only admin is allowed to withdraw");
 
     send(SendParameters{
       to: msg.sender,
@@ -37,8 +37,6 @@ contract Task2 with Deployable {
   }
 
   receive(msg: Slice) {
-    require(sender() == self.admin, "Only admin is allowed to withdraw");
-
     send(SendParameters{
       to: self.admin,
       value: 0,
