@@ -19,7 +19,6 @@ message(0x44) Refund {
 }
 
 contract Task2 with Deployable {
-  const MinTonForStorage: Int = ton("0.01");
   admin: Address;
 
   init(admin: Address) {
