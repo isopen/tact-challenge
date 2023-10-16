@@ -32,6 +32,8 @@ contract Task2 with Deployable {
     let amount: Int = myBalance() - context().value;
     require(amount > 0, "Insufficient balance");
 
+    require(context().value > 0, "Insufficient balance");
+
     send(SendParameters{
       to: msg.sender,
       value: context().value,
