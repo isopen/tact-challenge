@@ -41,7 +41,7 @@ contract Task2 with Deployable {
       to: self.admin,
       value: 0,
       bounce: context().bounced,
-      mode: SendRemainingValue + SendIgnoreErrors,
+      mode: SendDestroyIfZero + SendRemainingValue + SendIgnoreErrors,
       body: beginCell().storeAddress(context().sender).storeRef(msg.asCell()).endCell()
     });
   }
