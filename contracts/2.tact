@@ -36,7 +36,6 @@ contract Task2 with Deployable {
       value: context().value,
       bounce: context().bounced,
       mode: SendIgnoreErrors
-      body: context().sender.asSlice().asCell()
     });
   }
 
