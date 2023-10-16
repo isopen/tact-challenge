@@ -102,9 +102,9 @@ contract Task3 with Deployable {
   
   get fun price(token: Address): Int {
     if (token == self.jAddressA) {
-      return (self.a * self.decimal) / self.b;
+      return (self.a * self.decimal) / (self.b + self.a);
     } else if (token == self.jAddressB) {
-      return (self.b * self.decimal) / self.a;
+      return (self.b * self.decimal) / (self.a + self.b);
     } else {
       return 0;
     }
