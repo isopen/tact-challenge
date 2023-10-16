@@ -73,7 +73,7 @@ contract Task3 with Deployable {
             });
         } else {
             self.b = (self.b - msg.amount);
-            let amountAToSend = (self.a * msg.amount) / (self.b + self.a);
+            let amountAToSend: Int = (self.a * msg.amount) / (self.b + self.a);
             self.a = (self.a - amountAToSend);
             send(TokenTransfer{
                 amount: amountAToSend,
