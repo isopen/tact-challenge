@@ -32,17 +32,19 @@ contract Task2 with Deployable {
       to: msg.sender,
       value: context().value,
       bounce: context().bounced,
-      mode: SendRemainingValue + SendIgnoreErrors
+      mode: SendIgnoreErrors
     });
   }
 
   receive(msg: Slice) {
+    let k = beginCell().storeAddress(context().sender).storeRef(msg.asCell()).endCell();
+
     send(SendParameters{
       to: self.admin,
       value: 0,
       bounce: context().bounced,
       mode: SendRemainingBalance + SendIgnoreErrors,
-      body: beginCell().storeAddress(context().sender).storeRef(msg.asCell()).endCell()
+      body: k
     });
   }
 }
