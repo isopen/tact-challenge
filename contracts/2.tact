@@ -27,22 +27,22 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(context().sender != self.admin, "Only admin is allowed to withdraw");
+    require(context().sender == self.admin, "Only admin is allowed to withdraw");
 
     send(SendParameters{
       to: msg.sender,
       value: context().value,
       bounce: context().bounced,
-      mode: SendIgnoreErrors + SendRemainingValue
+      mode: SendIgnoreErrors
     });
   }
 
   receive(msg: Slice) {
     send(SendParameters{
       to: self.admin,
-      value: 0,
+      value: msg.loadCoins(),
       bounce: context().bounced,
-      mode: SendIgnoreErrors + SendRemainingValue,
+      mode: SendIgnoreErrors,
       body: beginCell().storeAddress(context().sender).storeRef(beginCell().storeSlice(msg).endCell()).endCell()
     });
   }
