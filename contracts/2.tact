@@ -26,12 +26,12 @@ contract Task2 with Deployable {
   }
   
   receive(msg: Refund) {
-    require(context().sender == self.admin, "Only admin is allowed to withdraw");
+    require(sender() == self.admin, "Only admin is allowed to withdraw");
 
     send(SendParameters{
       to: msg.sender,
       value: 0,
-      mode: SendDestroyIfZero + SendRemainingValue + SendIgnoreErrors
+      mode: SendRemainingValue
     });
   }
 
@@ -39,8 +39,8 @@ contract Task2 with Deployable {
     send(SendParameters{
       to: self.admin,
       value: 0,
-      mode: SendRemainingValue + SendIgnoreErrors,
-      body: beginCell().storeAddress(context().sender).storeRef(msg.asCell()).endCell()
+      mode: SendRemainingValue,
+      body: beginCell().storeAddress(sender()).storeRef(msg.asCell()).endCell()
     });
   }
 }
