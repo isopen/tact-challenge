@@ -84,7 +84,7 @@ contract Task3 with Deployable {
         });
       }
     } else {
-      throw(112);
+      throw(113);
     }
   }
   
