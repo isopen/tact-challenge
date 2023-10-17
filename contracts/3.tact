@@ -61,43 +61,38 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-    if (msg.from == self.jAddressA) {
-        self.a = self.a + msg.amount;
-    } else if (msg.from == self.jAddressB) {
-        if ((msg.amount * self.a) > (msg.amount * self.b)) {
-            send(TokenTransfer{
-                queryId: msg.queryId,
-                amount: msg.amount,
-                destination: msg.from,
-                responseDestination: msg.from,
-                customPayload: beginCell().endCell(),
-                forwardTonAmount: ton("0.01"),
-                forwardPayload: emptySlice()
-            });
-        } else {
-            self.b = (self.b - msg.amount);
-            let amountAToSend: Int = (self.a * msg.amount) / (self.b + self.a);
-            self.a = (self.a - amountAToSend);
-            send(TokenTransfer{
-                queryId: msg.queryId,
-                amount: amountAToSend,
-                destination: msg.from,
-                responseDestination: msg.from,
-                customPayload: beginCell().endCell(),
-                forwardTonAmount: ton("0.01"),
-                forwardPayload: emptySlice()
-            });
-        }
+    if (msg.from == self.jAddressB) {
+      if (self.a >= msg.amount) {
+        self.b += msg.amount;
+
+        self.a = (self.a * self.decimal) / self.b;
+      } else {
+        send(SendParameters{
+          to: msg.from,
+          value: 0,
+          bounce: false,
+          mode: SendRemainingValue,
+          body: TokenTransfer{
+            queryId: 0,
+            amount: msg.amount,
+            destination: self.owner,
+            responseDestination: self.owner,
+            customPayload: emptyCell(),
+            forwardTonAmount: 0,
+            forwardPayload: msg.forwardPayload
+          }.toCell()
+        });
+      }
     } else {
-        throw(100);
+      throw(112);
     }
   }
   
   get fun price(token: Address): Int {
     if (token == self.jAddressA) {
-      return (self.a * self.decimal) / (self.b + self.a);
+      return (self.a * self.decimal) / self.b;
     } else if (token == self.jAddressB) {
-      return (self.b * self.decimal) / (self.a + self.b);
+      return (self.b * self.decimal) / self.a;
     } else {
       return 0;
     }
