@@ -81,8 +81,41 @@ contract Task3 with Deployable {
       if (amountOfJettonAToReceive <= self.aAmount) {
         self.aAmount = (self.aAmount - amountOfJettonAToReceive);
         self.bAmount = (self.bAmount + msg.amount);
+      } else {
+        send(SendParameters{
+          to: msg.from,
+          value: 0,
+          bounce: false,
+          mode: SendRemainingValue,
+          body: TokenTransfer{
+            queryId: msg.queryId,
+            amount: msg.amount,
+            destination: msg.from,
+            responseDestination: myAddress(),
+            customPayload: null,
+            forwardTonAmount: ton("0.01"),
+            forwardPayload: msg.forwardPayload
+          }.toCell()
+        });
+        return;
       }
     }
+
+    send(SendParameters{
+      to: msg.from,
+      value: 0,
+      bounce: false,
+      mode: SendRemainingValue,
+      body: TokenTransfer{
+        queryId: msg.queryId,
+        amount: msg.amount,
+        destination: msg.from,
+        responseDestination: myAddress(),
+        customPayload: null,
+        forwardTonAmount: ton("0.01"),
+        forwardPayload: msg.forwardPayload
+      }.toCell()
+    });
   } 
   
   get fun price(jetton: Address): Int {
