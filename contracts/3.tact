@@ -76,8 +76,7 @@ contract Task3 with Deployable {
       } else {
         throw(112);
       }
-    }
-
+    } else {
     if (msg.from == self.jettonAddressB) {
       let amountOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
 
@@ -158,6 +157,7 @@ contract Task3 with Deployable {
       }
     } else {
       throw(112);
+    }
     }
   }
   
