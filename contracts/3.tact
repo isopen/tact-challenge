@@ -85,21 +85,6 @@ contract Task3 with Deployable {
           self.aAmount = (self.aAmount - sumOfAJettonToSend);
 
           send(SendParameters{
-            to: self.jettonAddressB,
-            value: 0,
-            mode: SendIgnoreErrors,
-            body: TokenTransfer{
-              queryId: 0,
-              amount: msg.amount,
-              destination: msg.from,
-              responseDestination: myAddress(),
-              customPayload: null,
-              forwardTonAmount: ton("0.01"),
-              forwardPayload: emptySlice()
-            }.toCell()
-          });
-
-          send(SendParameters{
             to: sender(),
             value: 0,
             mode: SendIgnoreErrors,
@@ -135,21 +120,6 @@ contract Task3 with Deployable {
         if (sumOfBJettonToSend <= self.bAmount) {
           self.aAmount = (self.aAmount + msg.amount);
           self.bAmount = (self.bAmount - sumOfBJettonToSend);
-
-          send(SendParameters{
-            to: self.jettonAddressA,
-            value: 0,
-            mode: SendIgnoreErrors,
-            body: TokenTransfer{
-              queryId: 0,
-              amount: msg.amount,
-              destination: msg.from,
-              responseDestination: myAddress(),
-              customPayload: null,
-              forwardTonAmount: ton("0.01"),
-              forwardPayload: emptySlice()
-            }.toCell()
-          });
 
           send(SendParameters{
             to: sender(),
