@@ -150,7 +150,7 @@ contract Task3 with Deployable {
             mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
-              amount: msg.amount.toString(),
+              amount: msg.amount,
               destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
