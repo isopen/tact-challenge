@@ -78,24 +78,37 @@ contract Task3 with Deployable {
       if (amountOfAJettonToSend <= self.aAmount) {
         self.aAmount = (self.aAmount - amountOfAJettonToSend);
 
-        TokenTransfer{
-          queryId: 0,
-          amount: amountOfAJettonToSend,
-          destination: msg.from,
-          responseDestination: myAddress(),
-          customPayload: null,
-          forwardTonAmount: ton("0.01"),
-          forwardPayload: emptySlice()
-        }.send();
+        send(SendParameters{
+          to: msg.from,
+          value: 0,
+          bounce: false,
+          mode: SendRemainingValue,
+          body: TokenTransfer{
+            queryId: 0,
+            amount: amountOfAJettonToSend,
+            destination: msg.from,
+            responseDestination: myAddress(),
+            customPayload: null,
+            forwardTonAmount: ton("0.01"),
+            forwardPayload: emptySlice()
+          }.toCell()
+        });
       } else {
-        TokenTransfer{
-          queryId: 0,
-          amount: msg.amount,
-          destination: msg.from,
-          responseDestination: myAddress(),
-          forwardTonAmount: ton("0.01"),
-          forwardPayload: emptySlice()
-        }.send();
+        send(SendParameters{
+          to: msg.from,
+          value: 0,
+          bounce: false,
+          mode: SendRemainingValue,
+          body: TokenTransfer{
+            queryId: 0,
+            amount: msg.amount,
+            destination: msg.from,
+            responseDestination: myAddress(),
+            customPayload: null,
+            forwardTonAmount: ton("0.01"),
+            forwardPayload: emptySlice()
+          }.toCell()
+        });
       }
     } else if (msg.from == self.jettonAddressB) {
       self.bAmount = (self.bAmount + msg.amount);
@@ -105,23 +118,37 @@ contract Task3 with Deployable {
       if (amountOfBJettonToSend <= self.bAmount) {
         self.bAmount = (self.bAmount - amountOfBJettonToSend);
 
-        TokenTransfer{
-          queryId: 0,
-          amount: amountOfBJettonToSend,
-          destination: msg.from,
-          responseDestination: myAddress(),
-          forwardTonAmount: ton("0.01"),
-          forwardPayload: emptySlice()
-        }.send();
+        send(SendParameters{
+          to: msg.from,
+          value: 0,
+          bounce: false,
+          mode: SendRemainingValue,
+          body: TokenTransfer{
+            queryId: 0,
+            amount: amountOfBJettonToSend,
+            destination: msg.from,
+            responseDestination: myAddress(),
+            customPayload: null,
+            forwardTonAmount: ton("0.01"),
+            forwardPayload: emptySlice()
+          }.toCell()
+        });
       } else {
-        TokenTransfer{
-          queryId: 0,
-          amount: amountOfTokenAToSwap,
-          destination: msg.from,
-          responseDestination: myAddress(),
-          forwardTonAmount: ton("0.01"),
-          forwardPayload: emptySlice()
-        }.send();
+        send(SendParameters{
+          to: msg.from,
+          value: 0,
+          bounce: false,
+          mode: SendRemainingValue,
+          body: TokenTransfer{
+            queryId: 0,
+            amount: msg.amount,
+            destination: msg.from,
+            responseDestination: myAddress(),
+            customPayload: null,
+            forwardTonAmount: ton("0.01"),
+            forwardPayload: emptySlice()
+          }.toCell()
+        });
       }
     } else {
       throw(112);
