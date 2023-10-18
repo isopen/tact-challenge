@@ -87,7 +87,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: sender(),
             value: 0,
-            mode: SendIgnoreErrors,
+            mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
               amount: sumOfAJettonToSend,
@@ -102,7 +102,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: sender(),
             value: 0,
-            mode: SendIgnoreErrors,
+            mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
               amount: msg.amount,
@@ -124,7 +124,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: sender(),
             value: 0,
-            mode: SendIgnoreErrors,
+            mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
               amount: sumOfBJettonToSend,
@@ -139,7 +139,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: sender(),
             value: 0,
-            mode: SendIgnoreErrors,
+            mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
               amount: msg.amount,
