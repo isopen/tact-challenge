@@ -68,7 +68,15 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-    require(sender() == self.owner, "Invalid sender!");
+    if (sender() == self.owner) {
+      if (msg.from == self.jettonAddressB) {
+        self.bAmount = (self.bAmount + msg.amount);
+      } else if (if (msg.from == self.jettonAddressA) {
+        self.aAmount = (self.aAmount + msg.amount);
+      } else {
+        throw(112);
+      }
+    }
 
     if (msg.from == self.jettonAddressB) {
       let amountOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
