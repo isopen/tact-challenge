@@ -85,12 +85,27 @@ contract Task3 with Deployable {
           self.aAmount = (self.aAmount - amountOfAJettonToSend);
 
           send(SendParameters{
+            to: self.jettonAddressB,
+            value: 0,
+            mode: SendRemainingValue,
+            body: TokenTransfer{
+              queryId: 0,
+              amount: msg.amount,
+              destination: msg.from,
+              responseDestination: myAddress(),
+              customPayload: null,
+              forwardTonAmount: ton("0.01"),
+              forwardPayload: emptySlice()
+            }.toCell()
+          });
+
+          send(SendParameters{
             to: msg.from,
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
-              amount: ton(amountOfAJettonToSend.toString()),
+              amount: amountOfAJettonToSend,
               destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
@@ -105,7 +120,7 @@ contract Task3 with Deployable {
             mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
-              amount: ton(msg.amount.toString()),
+              amount: msg.amount.toString(),
               destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
@@ -122,12 +137,27 @@ contract Task3 with Deployable {
           self.bAmount = (self.bAmount - amountOfBJettonToSend);
 
           send(SendParameters{
+            to: self.jettonAddressA,
+            value: 0,
+            mode: SendRemainingValue,
+            body: TokenTransfer{
+              queryId: 0,
+              amount: msg.amount,
+              destination: msg.from,
+              responseDestination: myAddress(),
+              customPayload: null,
+              forwardTonAmount: ton("0.01"),
+              forwardPayload: emptySlice()
+            }.toCell()
+          });
+
+          send(SendParameters{
             to: msg.from,
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
-              amount: ton(amountOfBJettonToSend.toString()),
+              amount: amountOfBJettonToSend,
               destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
@@ -142,7 +172,7 @@ contract Task3 with Deployable {
             mode: SendRemainingValue,
             body: TokenTransfer{
               queryId: 0,
-              amount: ton(msg.amount.toString()),
+              amount: msg.amount,
               destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
