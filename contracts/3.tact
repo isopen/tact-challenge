@@ -71,12 +71,12 @@ contract Task3 with Deployable {
     require(msg.from == self.owner, "Only contract owner!");
 
     if (msg.from == self.jettonAddressA) {
-      self.aAmount += msg.amount;
+      self.aAmount = (self.aAmount + msg.amount);
 
-      let amountOfAJettonToSend = (self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal;
+      let amountOfAJettonToSend = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
 
       if (amountOfAJettonToSend <= self.aAmount) {
-        self.aAmount -= amountOfAJettonToSend;
+        self.aAmount = (self.aAmount - amountOfAJettonToSend);
 
         TokenTransfer{
           queryId: 0,
@@ -98,12 +98,12 @@ contract Task3 with Deployable {
         }.send();
       }
     } else if (msg.from == self.jettonAddressB) {
-      self.bAmount += msg.amount;
+      self.bAmount = (self.bAmount + msg.amount);
 
-      let amountOfBJettonToSend = (self.bAmount * self.decimal / self.aAmount) * amountOfTokenAToSwap / self.decimal;
+      let amountOfBJettonToSend = ((self.bAmount * self.decimal / self.aAmount) * amountOfTokenAToSwap / self.decimal);
 
       if (amountOfBJettonToSend <= self.bAmount) {
-        self.bAmount -= amountOfBJettonToSend;
+        self.bAmount = (self.bAmount - amountOfBJettonToSend);
 
         TokenTransfer{
           queryId: 0,
