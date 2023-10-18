@@ -71,9 +71,9 @@ contract Task3 with Deployable {
     require(sender() == self.jettonAddressA || sender() == self.jettonAddressB, "Invalid jetton received!");
 
     if (msg.from == self.owner) {
-      if (sender() == self.jettonAddressB) {
+      if (msg.from == self.jettonAddressB) {
         self.bAmount = (self.bAmount + msg.amount);
-      } else if (sender() == self.jettonAddressA) {
+      } else if (msg.from == self.jettonAddressA) {
         self.aAmount = (self.aAmount + msg.amount);
       }
     } else {
