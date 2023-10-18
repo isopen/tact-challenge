@@ -99,7 +99,7 @@ contract Task3 with Deployable {
     } else if jetton == self.jettonAddressB {
       return (self.bAmount * self.decimal) / self.aAmount;
     } else {
-      trhow(112);
+      throw(112);
     }
   }
   
