@@ -67,12 +67,12 @@ contract Task4 with Deployable {
         bounce: false,
         mode: SendRemainingValue,
         body: Transfer{
-          queryId: 0,
-          newOwner: msg.prevOwner,
-          responseDestination: msg.prevOwner,
-          customPayload: null,
-          forwardAmount: ton("0"),
-          forwardPayload: emptySlice()
+          queryId: 0,
+          newOwner: msg.prevOwner,
+          responseDestination: msg.prevOwner,
+          customPayload: null,
+          forwardAmount: ton("0"),
+          forwardPayload: emptySlice()
         }.toCell()
       });
     } else {
