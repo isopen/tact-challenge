@@ -77,7 +77,7 @@ contract Task3 with Deployable {
     if (msg.from == self.jettonAddressA) {
       self.aAmount = (self.aAmount + msg.amount);
     } else if (msg.from == self.jettonAddressB) {
-      let amountOfJettonAToReceive: Int = 1;
+      let amountOfJettonAToReceive = (self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal;
       if (amountOfJettonAToReceive <= self.aAmount) {
         self.aAmount = (self.aAmount - amountOfJettonAToReceive);
         self.bAmount = (self.bAmount + msg.amount);
