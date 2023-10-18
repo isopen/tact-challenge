@@ -50,7 +50,7 @@ contract Task4 with Deployable {
   seed: Int as uint128;
   nftAddress: Address?;
   owner: Address?;
-  lockTime: int;
+  lockTime: Int;
   
   init(seed: Int) {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
