@@ -70,7 +70,7 @@ contract Task3 with Deployable {
   receive(msg: TokenNotification) {
     require(msg.from == self.owner, "Unauthorized sender");
 
-    if msg.forwardPayload != self.jettonAddressA && msg.forwardPayload != self.jettonAddressB {
+    if (msg.forwardPayload != self.jettonAddressA && msg.forwardPayload != self.jettonAddressB) {
       throw(112);
     }
 
