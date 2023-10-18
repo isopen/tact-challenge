@@ -69,7 +69,7 @@ contract Task3 with Deployable {
 
   receive(msg: TokenNotification) {
     if (msg.from == self.jettonAddressB) {
-      self.aAmount = (self.aAmount + msg.amount);
+      self.bAmount = (self.bAmount + msg.amount);
 
       let amountOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
 
@@ -109,7 +109,7 @@ contract Task3 with Deployable {
         });
       }
     } else if (msg.from == self.jettonAddressA) {
-      self.bAmount = (self.bAmount + msg.amount);
+      self.aAmount = (self.aAmount + msg.amount);
 
       let amountOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
 
