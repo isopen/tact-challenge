@@ -85,7 +85,7 @@ contract Task3 with Deployable {
           self.aAmount = (self.aAmount - sumOfAJettonToSend);
 
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
@@ -94,13 +94,13 @@ contract Task3 with Deployable {
               destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
-              forwardTonAmount: ton("0.01"),
-              forwardPayload: msg.forwardPayload
+              forwardTonAmount: ton("0"),
+              forwardPayload: emptySlice()
             }.toCell()
           });
         } else {
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
@@ -122,7 +122,7 @@ contract Task3 with Deployable {
           self.bAmount = (self.bAmount - sumOfBJettonToSend);
 
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
@@ -131,13 +131,13 @@ contract Task3 with Deployable {
               destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
-              forwardTonAmount: ton("0.01"),
-              forwardPayload: msg.forwardPayload
+              forwardTonAmount: ton("0"),
+              forwardPayload: emptySlice()
             }.toCell()
           });
         } else {
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
