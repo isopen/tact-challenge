@@ -88,6 +88,7 @@ contract Task3 with Deployable {
             to: sender(),
             value: 0,
             mode: SendRemainingValue,
+            bounce: false,
             body: TokenTransfer{
               queryId: 0,
               amount: sumOfAJettonToSend,
@@ -99,7 +100,7 @@ contract Task3 with Deployable {
             }.toCell()
           });
         } else {
-          /*send(SendParameters{
+          send(SendParameters{
             to: sender(),
             value: 0,
             mode: SendRemainingValue,
@@ -112,7 +113,7 @@ contract Task3 with Deployable {
               forwardTonAmount: ton("0.01"),
               forwardPayload: msg.forwardPayload
             }.toCell()
-          });*/
+          });
         }
       } else if (sender() == self.jettonAddressA) {
         let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
@@ -125,6 +126,7 @@ contract Task3 with Deployable {
             to: sender(),
             value: 0,
             mode: SendRemainingValue,
+            bounce: false,
             body: TokenTransfer{
               queryId: 0,
               amount: sumOfBJettonToSend,
@@ -136,7 +138,7 @@ contract Task3 with Deployable {
             }.toCell()
           });
         } else {
-          /*send(SendParameters{
+          send(SendParameters{
             to: sender(),
             value: 0,
             mode: SendRemainingValue,
@@ -149,7 +151,7 @@ contract Task3 with Deployable {
               forwardTonAmount: ton("0.01"),
               forwardPayload: msg.forwardPayload
             }.toCell()
-          });*/
+          });
         }
       }
     }
