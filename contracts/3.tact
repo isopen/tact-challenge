@@ -92,11 +92,11 @@ contract Task3 with Deployable {
             body: TokenTransfer{
               queryId: 0,
               amount: sumOfAJettonToSend,
-              destination: msg.from,
+              destination: sender(),
               responseDestination: myAddress(),
               customPayload: null,
               forwardTonAmount: ton("0.01"),
-              forwardPayload: emptySlice()
+              forwardPayload: msg.forwardPayload
             }.toCell()
           });
         } else {
@@ -130,11 +130,11 @@ contract Task3 with Deployable {
             body: TokenTransfer{
               queryId: 0,
               amount: sumOfBJettonToSend,
-              destination: msg.from,
+              destination: sender(),
               responseDestination: myAddress(),
               customPayload: null,
               forwardTonAmount: ton("0.01"),
-              forwardPayload: emptySlice()
+              forwardPayload: msg.forwardPayload
             }.toCell()
           });
         } else {
