@@ -68,13 +68,13 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
+    require(msg.from == self.jettonAddressA || msg.from == self.jettonAddressB, "Invalid jetton received!");
+
     if (sender() == self.owner) {
       if (msg.from == self.jettonAddressB) {
         self.bAmount = (self.bAmount + msg.amount);
       } else if (msg.from == self.jettonAddressA) {
         self.aAmount = (self.aAmount + msg.amount);
-      } else {
-        throw(112);
       }
     } else {
     if (msg.from == self.jettonAddressB) {
@@ -155,8 +155,6 @@ contract Task3 with Deployable {
           }.toCell()
         });
       }
-    } else {
-      throw(112);
     }
     }
   }
