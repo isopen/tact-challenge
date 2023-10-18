@@ -77,7 +77,7 @@ contract Task3 with Deployable {
         send(SendParameters{
           to: self.jettonAddressB,
           value: 0,
-          mode: SendRemainingValue,
+          mode: SendIgnoreErrors,
           body: TokenTransfer{
             queryId: 0,
             amount: msg.amount,
@@ -94,7 +94,7 @@ contract Task3 with Deployable {
         send(SendParameters{
           to: self.jettonAddressA,
           value: 0,
-          mode: SendRemainingValue,
+          mode: SendIgnoreErrors,
           body: TokenTransfer{
             queryId: 0,
             amount: msg.amount,
@@ -117,7 +117,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: self.jettonAddressB,
             value: 0,
-            mode: SendRemainingValue,
+            mode: SendIgnoreErrors,
             body: TokenTransfer{
               queryId: 0,
               amount: msg.amount,
@@ -132,7 +132,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: sender(),
             value: 0,
-            mode: SendRemainingValue,
+            mode: SendIgnoreErrors,
             body: TokenTransfer{
               queryId: 0,
               amount: sumOfAJettonToSend,
@@ -147,7 +147,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: sender(),
             value: 0,
-            mode: SendRemainingValue,
+            mode: SendIgnoreErrors,
             body: TokenTransfer{
               queryId: 0,
               amount: msg.amount,
@@ -169,7 +169,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: self.jettonAddressA,
             value: 0,
-            mode: SendRemainingValue,
+            mode: SendIgnoreErrors,
             body: TokenTransfer{
               queryId: 0,
               amount: msg.amount,
@@ -184,7 +184,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: sender(),
             value: 0,
-            mode: SendRemainingValue,
+            mode: SendIgnoreErrors,
             body: TokenTransfer{
               queryId: 0,
               amount: sumOfBJettonToSend,
@@ -199,7 +199,7 @@ contract Task3 with Deployable {
           send(SendParameters{
             to: sender(),
             value: 0,
-            mode: SendRemainingValue,
+            mode: SendIgnoreErrors,
             body: TokenTransfer{
               queryId: 0,
               amount: msg.amount,
@@ -217,9 +217,9 @@ contract Task3 with Deployable {
   
   get fun price(jetton: Address): Int {
     if (jetton == self.jettonAddressA) {
-      return (self.bAmount * self.decimal / self.aAmount);
-    } else if (jetton == self.jettonAddressB) {
       return (self.aAmount * self.decimal / self.bAmount);
+    } else if (jetton == self.jettonAddressB) {
+      return (self.bAmount * self.decimal / self.aAmount);
     } else {
       return 0;
     }
