@@ -77,8 +77,7 @@ contract Task3 with Deployable {
     if (msg.forwardPayload == self.jettonAddressA) {
       self.aAmount = self.aAmount + msg.amount;
     } else if (msg.forwardPayload == self.jettonAddressB) {
-      let priceJettonA: Int = (self.aAmount * self.decimal / self.bAmount);
-      let amountOfJettonAToReceive: Int = priceJettonA * msg.amount / self.decimal;
+      let amountOfJettonAToReceive: Int = (self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal;
       if (amountOfJettonAToReceive <= self.aAmount) {
         self.aAmount = self.aAmount - amountOfJettonAToReceive;
         self.bAmount = self.bAmount + msg.amount;
@@ -94,7 +93,7 @@ contract Task3 with Deployable {
     } else if jetton == self.jettonAddressB {
       return (self.bAmount * self.decimal) / self.aAmount;
     } else {
-      throw(112);
+      return 0;
     }
   }
   
@@ -104,7 +103,7 @@ contract Task3 with Deployable {
     } else if jetton == self.jettonAddressB {
       return self.bAmount;
     } else {
-      throw(112);
+      return 0;
     }
   }
 }
