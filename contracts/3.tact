@@ -85,7 +85,7 @@ contract Task3 with Deployable {
           self.aAmount = (self.aAmount - sumOfAJettonToSend);
 
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
@@ -100,7 +100,7 @@ contract Task3 with Deployable {
           });
         } else {
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
@@ -122,7 +122,7 @@ contract Task3 with Deployable {
           self.bAmount = (self.bAmount - sumOfBJettonToSend);
 
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
@@ -137,7 +137,7 @@ contract Task3 with Deployable {
           });
         } else {
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
