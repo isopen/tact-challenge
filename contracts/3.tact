@@ -113,7 +113,7 @@ contract Task3 with Deployable {
     } else if (msg.from == self.jettonAddressB) {
       self.bAmount = (self.bAmount + msg.amount);
 
-      let amountOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * amountOfTokenAToSwap / self.decimal);
+      let amountOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
 
       if (amountOfBJettonToSend <= self.bAmount) {
         self.bAmount = (self.bAmount - amountOfBJettonToSend);
