@@ -68,8 +68,6 @@ contract Task3 with Deployable {
   }
 
   receive(msg: TokenNotification) {
-    require(msg.from == self.owner, "Only contract owner!");
-
     if (msg.from == self.jettonAddressA) {
       self.aAmount = (self.aAmount + msg.amount);
 
