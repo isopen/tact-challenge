@@ -75,21 +75,6 @@ contract Task3 with Deployable {
         self.bAmount = (self.bAmount + msg.amount);
       } else if (msg.from == self.jettonAddressA) {
         self.aAmount = (self.aAmount + msg.amount);
-
-        send(SendParameters{
-          to: self.jettonAddressA,
-          value: 0,
-          mode: SendRemainingValue,
-          body: TokenTransfer{
-            queryId: 0,
-            amount: msg.amount,
-            destination: msg.from,
-            responseDestination: myAddress(),
-            customPayload: null,
-            forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
-          }.toCell()
-        });
       }
     } else {
       if (msg.from == self.jettonAddressB) {
