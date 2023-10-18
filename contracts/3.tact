@@ -79,7 +79,7 @@ contract Task3 with Deployable {
     if (msg.forwardPayload == self.jettonAddressA) {
       self.aAmount = self.aAmount + amount;
     } else if (msg.forwardPayload == self.jettonAddressB) {
-      if (amountOfJettonAToReceive <= self.aAmount) {
+      if (((self.aAmount * self.decimal / self.bAmount) * amount / self.decimal) <= self.aAmount) {
         self.aAmount = self.aAmount - ((self.aAmount * self.decimal / self.bAmount) * amount / self.decimal);
         self.bAmount = self.bAmount + amount;
       } else {
