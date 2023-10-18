@@ -82,7 +82,7 @@ contract Task3 with Deployable {
 
         if (sumOfAJettonToSend <= self.aAmount) {
           self.bAmount = (self.bAmount + msg.amount);
-          self.aAmount = (self.aAmount - amountOfAJettonToSend);
+          self.aAmount = (self.aAmount - sumOfAJettonToSend);
 
           send(SendParameters{
             to: msg.from,
@@ -119,7 +119,7 @@ contract Task3 with Deployable {
 
         if (sumOfBJettonToSend <= self.bAmount) {
           self.aAmount = (self.aAmount + msg.amount);
-          self.bAmount = (self.bAmount - amountOfBJettonToSend);
+          self.bAmount = (self.bAmount - sumOfBJettonToSend);
 
           send(SendParameters{
             to: msg.from,
