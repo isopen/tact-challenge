@@ -81,8 +81,6 @@ contract Task3 with Deployable {
       if (amountOfJettonAToReceive <= self.aAmount) {
         self.aAmount = self.aAmount - amountOfJettonAToReceive;
         self.bAmount = self.bAmount + msg.amount;
-      } else {
-        return;
       }
     }
   } 
