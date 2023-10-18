@@ -90,9 +90,9 @@ contract Task3 with Deployable {
             mode: SendRemainingValue,
             bounce: false,
             body: TokenTransfer{
-              queryId: 0,
+              queryId: msg.queryId,
               amount: sumOfAJettonToSend,
-              destination: sender(),
+              destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
               forwardTonAmount: ton("0.01"),
@@ -105,7 +105,7 @@ contract Task3 with Deployable {
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
-              queryId: 0,
+              queryId: msg.queryId,
               amount: msg.amount,
               destination: msg.from,
               responseDestination: myAddress(),
@@ -128,9 +128,9 @@ contract Task3 with Deployable {
             mode: SendRemainingValue,
             bounce: false,
             body: TokenTransfer{
-              queryId: 0,
+              queryId: msg.queryId,
               amount: sumOfBJettonToSend,
-              destination: sender(),
+              destination: msg.from,
               responseDestination: myAddress(),
               customPayload: null,
               forwardTonAmount: ton("0.01"),
@@ -143,7 +143,7 @@ contract Task3 with Deployable {
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
-              queryId: 0,
+              queryId: msg.queryId,
               amount: msg.amount,
               destination: msg.from,
               responseDestination: myAddress(),
