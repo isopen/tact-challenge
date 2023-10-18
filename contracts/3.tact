@@ -84,7 +84,7 @@ contract Task3 with Deployable {
           self.bAmount = (self.bAmount + msg.amount);
           self.aAmount = (self.aAmount - sumOfAJettonToSend);
 
-          /*send(SendParameters{
+          send(SendParameters{
             to: sender(),
             value: 0,
             mode: SendRemainingValue,
@@ -97,9 +97,9 @@ contract Task3 with Deployable {
               forwardTonAmount: ton("0.01"),
               forwardPayload: emptySlice()
             }.toCell()
-          });*/
+          });
         } else {
-          send(SendParameters{
+          /*send(SendParameters{
             to: sender(),
             value: 0,
             mode: SendRemainingValue,
@@ -112,7 +112,7 @@ contract Task3 with Deployable {
               forwardTonAmount: ton("0.01"),
               forwardPayload: msg.forwardPayload
             }.toCell()
-          });
+          });*/
         }
       } else if (sender() == self.jettonAddressA) {
         let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
@@ -121,7 +121,7 @@ contract Task3 with Deployable {
           self.aAmount = (self.aAmount + msg.amount);
           self.bAmount = (self.bAmount - sumOfBJettonToSend);
 
-          /*send(SendParameters{
+          send(SendParameters{
             to: sender(),
             value: 0,
             mode: SendRemainingValue,
@@ -134,9 +134,9 @@ contract Task3 with Deployable {
               forwardTonAmount: ton("0.01"),
               forwardPayload: emptySlice()
             }.toCell()
-          });*/
+          });
         } else {
-          send(SendParameters{
+          /*send(SendParameters{
             to: sender(),
             value: 0,
             mode: SendRemainingValue,
@@ -149,7 +149,7 @@ contract Task3 with Deployable {
               forwardTonAmount: ton("0.01"),
               forwardPayload: msg.forwardPayload
             }.toCell()
-          });
+          });*/
         }
       }
     }
