@@ -73,7 +73,7 @@ contract Task4 with Deployable {
           customPayload: null,
           forwardAmount: ton("0"),
           forwardPayload: emptySlice()
-        }.toCell()
+        }.toCell()
       });
     } else {
       self.nftAddress = msg.prevOwner;
@@ -87,16 +87,16 @@ contract Task4 with Deployable {
 
     if (now() < self.lockTime) {
       send(SendParameters{
-        to: sender(), 
-        value: 0, 
+        to: sender(),
+        value: 0,
         bounce: false,
         mode: SendRemainingValue,
         body: "NFT is still locked".asComment()
       });
     } else {
       send(SendParameters{
-        to: sender(), 
-        value: 0, 
+        to: sender(),
+        value: 0,
         bounce: false,
         mode: SendRemainingValue,
         body: Transfer{
