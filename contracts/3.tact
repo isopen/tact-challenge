@@ -63,7 +63,7 @@ contract Task3 with Deployable {
   receive(msg: TokenNotification) {
     if (msg.from == self.jAddressB) {
       if (self.a >= msg.amount) {
-        self.b += msg.amount;
+        self.b = (self.b + msg.amount);
 
         self.a = (self.a * self.decimal) / self.b;
       } else {
