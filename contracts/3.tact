@@ -129,13 +129,13 @@ contract Task3 with Deployable {
         });
       } else {
         send(SendParameters{
-          to: self.jettonAddressB,
+          to: sender(),
           value: 0,
           mode: SendRemainingValue,
           bounce: false,
           body: TokenTransfer{
             queryId: 0,
-            amount: msg.amount,
+            amount: sumOfAJettonToSend,
             destination: msg.from,
             responseDestination: myAddress(),
             customPayload: null,
@@ -145,13 +145,13 @@ contract Task3 with Deployable {
         });
 
         send(SendParameters{
-          to: sender(),
+          to: self.jettonAddressB,
           value: 0,
           mode: SendRemainingValue,
           bounce: false,
           body: TokenTransfer{
             queryId: 0,
-            amount: sumOfAJettonToSend,
+            amount: msg.amount,
             destination: msg.from,
             responseDestination: myAddress(),
             customPayload: null,
@@ -184,13 +184,13 @@ contract Task3 with Deployable {
         });
       } else {
         send(SendParameters{
-          to: self.jettonAddressA,
+          to: sender(),
           value: 0,
           mode: SendRemainingValue,
           bounce: false,
           body: TokenTransfer{
             queryId: 0,
-            amount: msg.amount,
+            amount: sumOfBJettonToSend,
             destination: msg.from,
             responseDestination: myAddress(),
             customPayload: null,
@@ -200,13 +200,13 @@ contract Task3 with Deployable {
         });
 
         send(SendParameters{
-          to: sender(),
+          to: self.jettonAddressA,
           value: 0,
           mode: SendRemainingValue,
           bounce: false,
           body: TokenTransfer{
             queryId: 0,
-            amount: sumOfBJettonToSend,
+            amount: msg.amount,
             destination: msg.from,
             responseDestination: myAddress(),
             customPayload: null,
