@@ -65,7 +65,7 @@ contract Task4 with Deployable {
     if (self.nftAddress == null) {
       self.nftAddress = msg.prevOwner;
       self.prevOwner = msg.prevOwner;
-      self.lockTime = msg.forwardPayload.decode_as(uint32);
+      self.lockTime = msg.forwardPayload.loadUint(32);
       self.lockExpiresAt = now() + self.lockTime;
     } else {
       send(SendParameters{
