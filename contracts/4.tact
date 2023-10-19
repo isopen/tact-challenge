@@ -87,13 +87,13 @@ contract Task4 with Deployable {
 
     if (now() > self.lockTime) {
       send(SendParameters{
-        to: sender(),
+        to: elf.owner,
         value: 0,
         bounce: true,
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: msg.nftAddress,
+          newOwner: elf.owner,
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: ton("0.01"),
@@ -106,7 +106,7 @@ contract Task4 with Deployable {
   }
 
   get fun time(): Int {
-    return self.lockTime - now();
+    return now() - self.lockTime;
   }
 
   get fun nft(): Address? {
