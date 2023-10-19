@@ -77,14 +77,13 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount + msg.amount);
       }
     } else if (sender() == self.jettonAddressB) {
-      let amountOfTokenBToSwap: Int = msg.amount;
-      let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * amountOfTokenBToSwap / self.decimal);
+      let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
 
       if (sumOfAJettonToSend > self.aAmount) {
         send(SendParameters{
           to: sender(),
           value: 0,
-          mode: SendRemainingValue + SendIgnoreErrors,
+          mode: SendRemainingValue,
           bounce: false,
           body: TokenTransfer{
             queryId: 0,
@@ -117,14 +116,13 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount - sumOfAJettonToSend);
       }
     } else if (sender() == self.jettonAddressA) {
-      let amountOfTokenAToSwap: Int = msg.amount;
-      let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * amountOfTokenAToSwap / self.decimal);
+      let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
 
       if (sumOfBJettonToSend > self.bAmount) {
         send(SendParameters{
           to: sender(),
           value: 0,
-          mode: SendRemainingValue + SendIgnoreErrors,
+          mode: SendRemainingValue,
           bounce: false,
           body: TokenTransfer{
             queryId: 0,
