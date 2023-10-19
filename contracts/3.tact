@@ -96,9 +96,6 @@ contract Task3 with Deployable {
           }.toCell()
         });
       } else {
-        self.bAmount = (self.bAmount + msg.amount);
-        self.aAmount = (self.aAmount - sumOfAJettonToSend);
-
         send(SendParameters{
           to: self.jettonAddressB,
           value: 0,
@@ -130,6 +127,9 @@ contract Task3 with Deployable {
             forwardPayload: emptySlice()
           }.toCell()
         });
+
+        self.bAmount = (self.bAmount + msg.amount);
+        self.aAmount = (self.aAmount - sumOfAJettonToSend);
       }
     } else if (sender() == self.jettonAddressA) {
       let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
@@ -151,9 +151,6 @@ contract Task3 with Deployable {
           }.toCell()
         });
       } else {
-        self.aAmount = (self.aAmount + msg.amount);
-        self.bAmount = (self.bAmount - sumOfBJettonToSend);
-
         send(SendParameters{
           to: self.jettonAddressA,
           value: 0,
@@ -185,6 +182,9 @@ contract Task3 with Deployable {
             forwardPayload: emptySlice()
           }.toCell()
         });
+
+        self.aAmount = (self.aAmount + msg.amount);
+        self.bAmount = (self.bAmount - sumOfBJettonToSend);
       }
     }
   }
