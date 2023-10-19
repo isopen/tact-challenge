@@ -109,7 +109,7 @@ contract Task4 with Deployable {
       });
 
       self.nftAddress = null;
-      self.prevOwner = mull;
+      self.prevOwner = null;
       self.lockTime = 0;
       self.lockExpiresAt = 0;
     }
