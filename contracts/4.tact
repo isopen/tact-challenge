@@ -95,14 +95,14 @@ contract Task4 with Deployable {
       });
     } else {
       send(SendParameters{
-        to: msg.nftAddress,
+        to: self.owner,
         value: 0,
         bounce: false,
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: msg.nftAddress,
-          responseDestination: myAddress(),
+          newOwner: self.owner,
+          responseDestination: self.owner,
           customPayload: null,
           forwardAmount: ton("0.01"),
           forwardPayload: emptySlice()
