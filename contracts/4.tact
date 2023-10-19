@@ -64,21 +64,6 @@ contract Task4 with Deployable {
       self.nftAddress = msg.prevOwner;
       self.prevOwner = msg.prevOwner;
       self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
-
-      send(SendParameters{
-        to: msg.prevOwner,
-        value: 0,
-        bounce: false,
-        mode: SendRemainingValue,
-        body: Transfer{
-          queryId: 0,
-          newOwner: msg.prevOwner,
-          responseDestination: msg.prevOwner,
-          customPayload: null,
-          forwardAmount: 0,
-          forwardPayload: emptySlice()
-        }.toCell()
-      });
     } else {
       send(SendParameters{
         to: msg.prevOwner,
@@ -91,7 +76,7 @@ contract Task4 with Deployable {
           responseDestination: msg.prevOwner,
           customPayload: null,
           forwardAmount: 0,
-          forwardPayload: emptySlice()
+          forwardPayload: msg.forwardPayload
         }.toCell()
       });
     }
