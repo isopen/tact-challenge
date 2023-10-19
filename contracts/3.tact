@@ -128,7 +128,7 @@ contract Task3 with Deployable {
           }.toCell()
         });
       } else {
-        let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
+        let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * cancellB / self.decimal);
 
         send(SendParameters{
           to: sender(),
@@ -185,7 +185,7 @@ contract Task3 with Deployable {
           }.toCell()
         });
       } else {
-        let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
+        let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * cancellA / self.decimal);
 
         send(SendParameters{
           to: sender(),
