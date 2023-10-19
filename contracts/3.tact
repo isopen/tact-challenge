@@ -161,7 +161,7 @@ contract Task3 with Deployable {
           }.toCell()
         });
 
-        self.bAmount = amountOfJettonBOnContract;
+        self.bAmount = amountOfTokenBToSwap;
         self.aAmount = (self.aAmount - sumOfAJettonToSend);
       }
     } else if (sender() == self.jettonAddressA) {
@@ -217,7 +217,7 @@ contract Task3 with Deployable {
           }.toCell()
         });
 
-        self.aAmount = amountOfJettonAOnContract;
+        self.aAmount = amountOfTokenAToSwap;
         self.bAmount = (self.bAmount - sumOfBJettonToSend);
       }
     }
