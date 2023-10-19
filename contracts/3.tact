@@ -82,7 +82,7 @@ contract Task3 with Deployable {
 
         if (sumOfAJettonToSend > self.aAmount) {
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
