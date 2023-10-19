@@ -50,14 +50,12 @@ contract Task4 with Deployable {
   seed: Int as uint128;
   nftAddress: Address?;
   prevOwner: Address?;
-  lockTime: Int as uint32;
   lockExpiresAt: Int as uint32;
   
   init(seed: Int) {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
     self.nftAddress = null;
     self.prevOwner = null;
-    self.lockTime = 0;
     self.lockExpiresAt = 0;
   }
 
@@ -65,8 +63,22 @@ contract Task4 with Deployable {
     if (self.nftAddress == null) {
       self.nftAddress = msg.prevOwner;
       self.prevOwner = msg.prevOwner;
-      self.lockTime = msg.forwardPayload.loadUint(32);
-      self.lockExpiresAt = now() + self.lockTime;
+      self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
+
+      send(SendParameters{
+        to: msg.prevOwner,
+        value: 0,
+        bounce: false,
+        mode: SendRemainingValue,
+        body: Transfer{
+          queryId: 0,
+          newOwner: msg.prevOwner,
+          responseDestination: msg.prevOwner,
+          customPayload: null,
+          forwardAmount: 0,
+          forwardPayload: emptySlice()
+        }.toCell()
+      });
     } else {
       send(SendParameters{
         to: msg.prevOwner,
@@ -108,7 +120,6 @@ contract Task4 with Deployable {
 
       self.nftAddress = null;
       self.prevOwner = null;
-      self.lockTime = 0;
       self.lockExpiresAt = 0;
     }
   }
