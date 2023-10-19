@@ -77,7 +77,7 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount + msg.amount);
       }
     } else {
-      if (sender() == self.jettonAddressA) {
+      if (sender() == self.jettonAddressB) {
         let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
 
         if (sumOfAJettonToSend <= self.aAmount) {
@@ -116,7 +116,7 @@ contract Task3 with Deployable {
             }.toCell()
           });
         }
-      } else if (sender() == self.jettonAddressB) {
+      } else if (sender() == self.jettonAddressA) {
         let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
 
         if (sumOfBJettonToSend <= self.bAmount) {
