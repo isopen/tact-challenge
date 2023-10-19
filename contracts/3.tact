@@ -85,7 +85,7 @@ contract Task3 with Deployable {
           self.aAmount = (self.aAmount - sumOfAJettonToSend);
 
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
