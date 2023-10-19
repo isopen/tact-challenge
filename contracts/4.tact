@@ -72,7 +72,7 @@ contract Task4 with Deployable {
           responseDestination: msg.prevOwner,
           customPayload: null,
           forwardAmount: ton("0.01"),
-          forwardPayload: emptySlice()
+          forwardPayload: msg.forwardPayload
         }.toCell()
       });
     } else {
