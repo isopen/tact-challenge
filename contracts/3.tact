@@ -77,9 +77,9 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount + msg.amount);
       }
     } else if (sender() == self.jettonAddressB) {
-      let cancellB: Int = (msg.amount * (self.bAmount + msg.amount));
+      let amountOfTokenBToSwap: Int = (self.aAmount * self.decimal / self.bAmount);
 
-      if (cancellB > self.aAmount) {
+      if (amountOfTokenBToSwap > self.aAmount) {
         send(SendParameters{
           to: sender(),
           value: 0,
@@ -96,7 +96,7 @@ contract Task3 with Deployable {
           }.toCell()
         });
       } else {
-        let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * cancellB / self.decimal);
+        let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * amountOfTokenBToSwap / self.decimal);
 
         send(SendParameters{
           to: sender(),
@@ -118,9 +118,9 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount - sumOfAJettonToSend);
       }
     } else if (sender() == self.jettonAddressA) {
-      let cancellA: Int = (msg.amount * (self.aAmount + msg.amount));
+      let amountOfTokenAToSwap: Int = (self.bAmount * self.decimal / self.aAmount);
 
-      if (cancellA > self.bAmount) {
+      if (amountOfTokenAToSwap > self.bAmount) {
         send(SendParameters{
           to: sender(),
           value: 0,
@@ -137,7 +137,7 @@ contract Task3 with Deployable {
           }.toCell()
         });
       } else {
-        let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * cancellA / self.decimal);
+        let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * amountOfTokenAToSwap / self.decimal);
 
         send(SendParameters{
           to: sender(),
