@@ -61,6 +61,7 @@ contract Task4 with Deployable {
 
   receive(msg: OwnershipAssigned) {
     if (self.nftAddress == null) {
+      self.nftAddress = msg.prevOwner;
       self.owner = msg.prevOwner;
       self.lockTime = now() + msg.forwardPayload.loadUint(32);
     } else {
@@ -94,7 +95,7 @@ contract Task4 with Deployable {
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: sender(),
+          newOwner: msg.nftAddress,
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: ton("0.01"),
