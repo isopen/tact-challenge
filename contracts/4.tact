@@ -95,17 +95,17 @@ contract Task4 with Deployable {
       });
     } else {
       send(SendParameters{
-        to: sender(),
+        to: msg.newOwner,
         value: 0,
         bounce: false,
         mode: SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
-          newOwner: sender(),
-          responseDestination: msg.nftAddress,
-          customPayload: null,
-          forwardAmount: ton("0.01"),
-          forwardPayload: emptySlice()
+          newOwner: msg.newOwner,
+          responseDestination: msg.responseDestination,
+          customPayload: msg.customPayload,
+          forwardAmount: msg.forwardAmount,
+          forwardPayload: msg.forwardPayload
         }.toCell()
       });    
     }
