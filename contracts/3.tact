@@ -88,7 +88,7 @@ contract Task3 with Deployable {
           body: TokenTransfer{
             queryId: 0,
             amount: msg.amount,
-            destination: msg.from,
+            destination: sender(),
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
@@ -107,7 +107,7 @@ contract Task3 with Deployable {
           body: TokenTransfer{
             queryId: 0,
             amount: sumOfAJettonToSend,
-            destination: msg.from,
+            destination: sender(),
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
@@ -127,7 +127,7 @@ contract Task3 with Deployable {
           body: TokenTransfer{
             queryId: 0,
             amount: msg.amount,
-            destination: msg.from,
+            destination: sender(),
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
@@ -146,7 +146,7 @@ contract Task3 with Deployable {
           body: TokenTransfer{
             queryId: 0,
             amount: sumOfBJettonToSend,
-            destination: msg.from,
+            destination: sender(),
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
@@ -168,9 +168,9 @@ contract Task3 with Deployable {
   }
   
   get fun balance(jetton: Address): Int {
-    if (jetton == self.jettonAddressB) {
+    if (jetton == self.jettonAddressA) {
       return self.aAmount;
-    } else if (jetton == self.jettonAddressA) {
+    } else if (jetton == self.jettonAddressB) {
       return self.bAmount;
     } else {
       return 0;
