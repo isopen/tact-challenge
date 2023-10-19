@@ -65,7 +65,7 @@ contract Task4 with Deployable {
         to: sender(), 
         value: 0, 
         bounce: false,
-        mode: SendRemainingValue,
+        mode: SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
           newOwner: msg.prevOwner,
@@ -90,7 +90,7 @@ contract Task4 with Deployable {
         to: sender(),
         value: 0,
         bounce: false,
-        mode: SendRemainingValue,
+        mode: SendIgnoreErrors,
         body: "NFT is still locked".asComment()
       });
     } else {
@@ -98,7 +98,7 @@ contract Task4 with Deployable {
         to: sender(),
         value: 0,
         bounce: false,
-        mode: SendRemainingValue,
+        mode: SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
           newOwner: sender(),
