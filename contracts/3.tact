@@ -121,7 +121,7 @@ contract Task3 with Deployable {
 
         if (sumOfBJettonToSend > self.bAmount) {
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
@@ -140,7 +140,7 @@ contract Task3 with Deployable {
           self.bAmount = (self.bAmount - sumOfBJettonToSend);
 
           send(SendParameters{
-            to: msg.from,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
