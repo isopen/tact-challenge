@@ -109,10 +109,9 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount + msg.amount);
       }
     } else if (sender() == self.jettonAddressB) {
-      let amountOfTokenBToSwap: Int = (self.bAmount + msg.amount);
-      let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * amountOfTokenBToSwap / self.decimal);
+      let cancellB = (msg.amount * (self.bAmount + msg.amount));
 
-      if (sumOfAJettonToSend > self.aAmount) {
+      if (cancellB > self.aAmount) {
         send(SendParameters{
           to: sender(),
           value: 0,
@@ -129,6 +128,8 @@ contract Task3 with Deployable {
           }.toCell()
         });
       } else {
+        let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
+
         send(SendParameters{
           to: sender(),
           value: 0,
@@ -161,14 +162,13 @@ contract Task3 with Deployable {
           }.toCell()
         });
 
-        self.bAmount = amountOfTokenBToSwap;
+        self.bAmount = (self.bAmount + msg.amount);
         self.aAmount = (self.aAmount - sumOfAJettonToSend);
       }
     } else if (sender() == self.jettonAddressA) {
-      let amountOfTokenAToSwap: Int = (self.aAmount + msg.amount);
-      let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * amountOfTokenAToSwap / self.decimal);
+      let cancellA = (msg.amount * (self.aAmount + msg.amount));
 
-      if (sumOfBJettonToSend > self.bAmount) {
+      if (cancellA > self.bAmount) {
         send(SendParameters{
           to: sender(),
           value: 0,
@@ -185,6 +185,8 @@ contract Task3 with Deployable {
           }.toCell()
         });
       } else {
+        let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
+
         send(SendParameters{
           to: sender(),
           value: 0,
@@ -217,7 +219,7 @@ contract Task3 with Deployable {
           }.toCell()
         });
 
-        self.aAmount = amountOfTokenAToSwap;
+        self.aAmount = (self.aAmount + msg.amount);
         self.bAmount = (self.bAmount - sumOfBJettonToSend);
       }
     }
