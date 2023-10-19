@@ -109,7 +109,7 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount + msg.amount);
       }
     } else if (sender() == self.jettonAddressB) {
-      let cancellB = (msg.amount * (self.bAmount + msg.amount));
+      let cancellB: Int = (msg.amount * (self.bAmount + msg.amount));
 
       if (cancellB > self.aAmount) {
         send(SendParameters{
@@ -166,7 +166,7 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount - sumOfAJettonToSend);
       }
     } else if (sender() == self.jettonAddressA) {
-      let cancellA = (msg.amount * (self.aAmount + msg.amount));
+      let cancellA: Int = (msg.amount * (self.aAmount + msg.amount));
 
       if (cancellA > self.bAmount) {
         send(SendParameters{
