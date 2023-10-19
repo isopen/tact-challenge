@@ -84,7 +84,7 @@ contract Task3 with Deployable {
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
+            forwardPayload: msg.forwardPayload
           }.toCell()
         });
 
@@ -102,7 +102,7 @@ contract Task3 with Deployable {
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
+            forwardPayload: msg.forwardPayload
           }.toCell()
         });
 
@@ -124,7 +124,7 @@ contract Task3 with Deployable {
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
+            forwardPayload: msg.forwardPayload
           }.toCell()
         });
       } else {
@@ -140,7 +140,7 @@ contract Task3 with Deployable {
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
+            forwardPayload: msg.forwardPayload
           }.toCell()
         });
 
@@ -156,7 +156,7 @@ contract Task3 with Deployable {
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
+            forwardPayload: msg.forwardPayload
           }.toCell()
         });
 
@@ -179,7 +179,7 @@ contract Task3 with Deployable {
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
+            forwardPayload: msg.forwardPayload
           }.toCell()
         });
       } else {
@@ -195,7 +195,7 @@ contract Task3 with Deployable {
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
+            forwardPayload: msg.forwardPayload
           }.toCell()
         });
 
@@ -211,7 +211,7 @@ contract Task3 with Deployable {
             responseDestination: myAddress(),
             customPayload: null,
             forwardTonAmount: ton("0.01"),
-            forwardPayload: emptySlice()
+            forwardPayload: msg.forwardPayload
           }.toCell()
         });
 
