@@ -77,7 +77,7 @@ contract Task3 with Deployable {
         self.aAmount = (self.aAmount + msg.amount);
       }
     } else {
-      if (sender() == self.jettonAddressB && self.bAmount > 0) {
+      if (sender() == self.jettonAddressB) {
         let sumOfAJettonToSend: Int = ((self.aAmount * self.decimal / self.bAmount) * msg.amount / self.decimal);
 
         if (sumOfAJettonToSend <= self.aAmount) {
@@ -90,7 +90,7 @@ contract Task3 with Deployable {
             mode: SendRemainingValue,
             bounce: false,
             body: TokenTransfer{
-              queryId: msg.queryId,
+              queryId: 0,
               amount: sumOfAJettonToSend,
               destination: msg.from,
               responseDestination: myAddress(),
@@ -105,7 +105,7 @@ contract Task3 with Deployable {
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
-              queryId: msg.queryId,
+              queryId: 0,
               amount: msg.amount,
               destination: msg.from,
               responseDestination: myAddress(),
@@ -115,7 +115,7 @@ contract Task3 with Deployable {
             }.toCell()
           });
         }
-      } else if (sender() == self.jettonAddressA && self.aAmount > 0) {
+      } else if (sender() == self.jettonAddressA) {
         let sumOfBJettonToSend: Int = ((self.bAmount * self.decimal / self.aAmount) * msg.amount / self.decimal);
 
         if (sumOfBJettonToSend <= self.bAmount) {
@@ -128,7 +128,7 @@ contract Task3 with Deployable {
             mode: SendRemainingValue,
             bounce: false,
             body: TokenTransfer{
-              queryId: msg.queryId,
+              queryId: 0,
               amount: sumOfBJettonToSend,
               destination: msg.from,
               responseDestination: myAddress(),
@@ -143,7 +143,7 @@ contract Task3 with Deployable {
             value: 0,
             mode: SendRemainingValue,
             body: TokenTransfer{
-              queryId: msg.queryId,
+              queryId: 0,
               amount: msg.amount,
               destination: msg.from,
               responseDestination: myAddress(),
@@ -158,9 +158,9 @@ contract Task3 with Deployable {
   }
   
   get fun price(jetton: Address): Int {
-    if (jetton == self.jettonAddressB && self.bAmount > 0) {
+    if (jetton == self.jettonAddressB) {
       return (self.aAmount * self.decimal / self.bAmount);
-    } else if (jetton == self.jettonAddressA && self.aAmount > 0) {
+    } else if (jetton == self.jettonAddressA) {
       return (self.bAmount * self.decimal / self.aAmount);
     } else {
       return 0;
