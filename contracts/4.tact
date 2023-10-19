@@ -87,13 +87,13 @@ contract Task4 with Deployable {
 
     if (now() > self.lockTime) {
       send(SendParameters{
-        to: self.owner,
+        to: sender(),
         value: 0,
         bounce: true,
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: elf.owner,
+          newOwner: sender(),
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: ton("0.01"),
