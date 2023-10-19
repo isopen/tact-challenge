@@ -87,7 +87,7 @@ contract Task4 with Deployable {
 
     if (now() > self.lockTime) {
       send(SendParameters{
-        to: elf.owner,
+        to: self.owner,
         value: 0,
         bounce: true,
         mode: SendRemainingValue,
