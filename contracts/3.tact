@@ -84,7 +84,6 @@ contract Task3 with Deployable {
           to: sender(),
           value: 0,
           mode: SendRemainingValue,
-          bounce: false,
           body: TokenTransfer{
             queryId: 0,
             amount: msg.amount,
@@ -100,7 +99,6 @@ contract Task3 with Deployable {
           to: self.jettonAddressA,
           value: 0,
           mode: SendRemainingValue,
-          bounce: true,
           body: TokenTransfer{
             queryId: 0,
             amount: sumOfAJettonToSend,
@@ -123,7 +121,6 @@ contract Task3 with Deployable {
           to: sender(),
           value: 0,
           mode: SendRemainingValue,
-          bounce: false,
           body: TokenTransfer{
             queryId: 0,
             amount: msg.amount,
@@ -139,7 +136,6 @@ contract Task3 with Deployable {
           to: self.jettonAddressB,
           value: 0,
           mode: SendRemainingValue,
-          bounce: true,
           body: TokenTransfer{
             queryId: 0,
             amount: sumOfBJettonToSend,
