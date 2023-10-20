@@ -80,13 +80,12 @@ contract Task5 with Deployable {
 
   receive(msg: OwnershipAssigned) {
     if (msg.prevOwner == self.owner) {
-      // Добавляем NFT в коллекцию
+      // add nft to collection
       self.nfts[self.nftCounter] = msg.prevOwner;
       self.nftCounter += 1;
 
-      // Проверяем, достаточно ли TON для возврата NFT обратно, если нет, отправляем NFT пользователю
       if (msg.forwardAmount < ton("2.1") && myBalance() < ton("2")) {
-        // Возвращаем NFT назад отправителю
+        // back-send nft
         send(SendParameters{
           to: msg.prevOwner,
           value: 0,
