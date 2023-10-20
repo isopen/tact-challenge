@@ -67,7 +67,7 @@ contract Task4 with Deployable {
     } else {
       /* TODO ??? */
       send(SendParameters{
-        to: msg.prevOwner,
+        to: sender(),
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
