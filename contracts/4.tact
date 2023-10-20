@@ -66,12 +66,12 @@ contract Task4 with Deployable {
       self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
     } else {
       send(SendParameters{
-        to: msg.prevOwner,
+        to: sender(),
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: msg.prevOwner,
+          newOwner: sender(),
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
