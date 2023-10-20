@@ -66,17 +66,17 @@ contract Task4 with Deployable {
       self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
     } else {
       send(SendParameters{
-        to: myAddress(),
+        to: sender(),
         value: 0,
         bounce: false,
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: myAddress(),
+          newOwner: sender(),
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
-          forwardPayload: msg.forwardPayload
+          forwardPayload: emptySlice()
         }.toCell()
       });
     }
