@@ -90,7 +90,7 @@ contract Task4 with Deployable {
       send(SendParameters{
         to: msg.nftAddress,
         value: 0,
-        mode: SendRemainingValue,
+        mode: SendRemainingBalance,
         body: Transfer{
           queryId: 0,
           newOwner: sender(),
