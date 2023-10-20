@@ -65,7 +65,7 @@ contract Task4 with Deployable {
       self.prevOwner = msg.prevOwner;
       self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
     } else {
-      send(SendParameters{
+      /*send(SendParameters{
         to: sender(),
         value: 0,
         mode: SendRemainingValue,
@@ -77,7 +77,7 @@ contract Task4 with Deployable {
           forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
-      });
+      });*/
     }
   }
 
