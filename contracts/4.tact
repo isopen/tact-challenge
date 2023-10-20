@@ -115,7 +115,11 @@ contract Task4 with Deployable {
     } else {
       let time: Int = self.lockExpiresAt - now();
 
-      return time;
+      if (time > 0) {
+        return time;
+      } else {
+        return 0;
+      }
     }
   }
 
