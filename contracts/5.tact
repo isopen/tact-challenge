@@ -177,7 +177,7 @@ contract Task5 with Deployable {
       }
 
       // clean collection NFT
-      self.nfts = map<Int as uint16, Address>{};
+      self.nfts = emptyMap();
       self.nftCounter = 0;
     }
   }
