@@ -49,20 +49,20 @@ message NftWithdrawal {
 contract Task4 with Deployable {
   seed: Int as uint128;
   nftAddress: Address?;
-  prevOwner: Address?;
+  owner: Address?;
   lockExpiresAt: Int as uint32;
   
   init(seed: Int) {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
     self.nftAddress = null;
-    self.prevOwner = null;
+    self.owner = null;
     self.lockExpiresAt = 0;
   }
 
   receive(msg: OwnershipAssigned) {
     if (self.nftAddress == null) {
       self.nftAddress = sender();
-      self.prevOwner = msg.prevOwner;
+      self.owner = msg.prevOwner;
       self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
     } else {
       /* TODO ??? */
@@ -75,7 +75,7 @@ contract Task4 with Deployable {
           newOwner: msg.prevOwner,
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: ton("0.01"),
+          forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
       });
@@ -95,16 +95,16 @@ contract Task4 with Deployable {
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: msg.nftAddress,
+          newOwner: sender(),
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: ton("0.01"),
+          forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
       });
 
       self.nftAddress = null;
-      self.prevOwner = null;
+      self.owner = null;
       self.lockExpiresAt = 0;
     }
   }
