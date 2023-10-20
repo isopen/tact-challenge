@@ -75,7 +75,7 @@ contract Task5 with Deployable {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
     self.profitBalance = 0;
     self.nftCounter = 0;
-    self.nfts = map<Int as uint16, Address>{};
+    self.nfts = map<Int as uint16, Address>;
   }
 
   receive(msg: OwnershipAssigned) {
