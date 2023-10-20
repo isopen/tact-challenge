@@ -94,12 +94,12 @@ contract Task4 with Deployable {
 
       /* TODO ??? */
       send(SendParameters{
-        to: msg.nftAddress,
+        to: context().sender,
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: context().sender,
+          newOwner: msg.nftAddress,
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
