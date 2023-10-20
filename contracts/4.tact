@@ -65,27 +65,28 @@ contract Task4 with Deployable {
       self.prevOwner = msg.prevOwner;
       self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
     } else {
-      /*send(SendParameters{
-        to: sender(),
+      /* TODO ??? */
+      send(SendParameters{
+        to: msg.prevOwner,
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: sender(),
+          newOwner: msg.prevOwner,
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
-      });*/
+      });
     }
   }
 
   receive(msg: NftWithdrawal) {
-    /*require(sender() == self.prevOwner, "Invalid sender");*/
+    require(sender() == self.prevOwner, "Invalid sender");
 
     if (now() < self.lockExpiresAt) {
-      self.reply("NFT is still locked".asComment());
+      /*self.reply("NFT is still locked".asComment());*/
     } else {
       send(SendParameters{
         to: msg.nftAddress,
