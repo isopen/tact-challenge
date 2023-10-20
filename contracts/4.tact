@@ -69,10 +69,10 @@ contract Task4 with Deployable {
       send(SendParameters{
         to: context().sender,
         value: 0,
-        mode: SendRemainingValue + SendIgnoreErrors,
+        mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: msg.prevOwner,
+          newOwner: context().sender,
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
@@ -99,7 +99,7 @@ contract Task4 with Deployable {
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: msg.nftAddress,
+          newOwner: context().sender,
           responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
@@ -110,7 +110,7 @@ contract Task4 with Deployable {
   }
 
   get fun time(): Int {
-    if (self.lockExpiresAt != 0 && self.owner != null && self.nftAddress != null) {
+    if (self.nftAddress != null) {
       let time: Int = self.lockExpiresAt - now();
       if(time >= 0) {
         return time;
