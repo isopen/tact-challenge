@@ -94,7 +94,7 @@ contract Task4 with Deployable {
 
       /* TODO ??? */
       send(SendParameters{
-        to: self.nftAddress,
+        to: msg.nftAddress,
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
