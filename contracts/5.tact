@@ -66,24 +66,128 @@ message(0x5fcc3d14) Transfer {
 contract Task5 with Deployable {
   seed: Int as uint128;
   owner: Address;
+  profitBalance: Int as coins;
+  nftCounter: Int as uint16;
+  nfts: map<Int as uint16, Address>;
   
   init(seed: Int, owner: Address) {
     self.owner = owner;
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
+    self.profitBalance = 0;
+    self.nftCounter = 0;
+    self.nfts = map<Int as uint16, Address>{};
   }
 
   receive(msg: OwnershipAssigned) {
+    if (msg.prevOwner == self.owner) {
+      // Добавляем NFT в коллекцию
+      self.nfts[self.nftCounter] = msg.prevOwner;
+      self.nftCounter += 1;
+
+      // Проверяем, достаточно ли TON для возврата NFT обратно, если нет, отправляем NFT пользователю
+      if (msg.forwardAmount < ton("2.1") && myBalance() < ton("2")) {
+        // Возвращаем NFT назад отправителю
+        send(SendParameters{
+          to: msg.prevOwner,
+          value: 0,
+          mode: SendRemainingValue,
+          body: Transfer{
+            queryId: msg.queryId,
+            newOwner: msg.prevOwner,
+            responseDestination: msg.prevOwner,
+            customPayload: null,
+            forwardAmount: msg.forwardAmount,
+            forwardPayload: emptySlice()
+          }.toCell()
+        });
+      } else {
+        // random-select nft for send
+        let randomIndex: Int = random(0, self.nftCounter);
+        let selectedNft: Address = self.nfts[randomIndex];
+
+        // calc back sum
+        let returnAmount = msg.forwardAmount - ton("2");
+
+        // back-send selected nft to user
+        send(SendParameters{
+          to: selectedNft,
+          value: 0,
+          mode: SendRemainingValue,
+          body: Transfer{
+            queryId: msg.queryId,
+            newOwner: msg.prevOwner,
+            responseDestination: msg.prevOwner,
+            customPayload: null,
+            forwardAmount: returnAmount,
+            forwardPayload: emptySlice()
+          }.toCell()
+        });
+
+        self.profitBalance += ton("0.1");
+
+        // del selected nft
+        delete self.nfts[randomIndex];
+      }
+    } else {
+      // send-back nft
+      if (msg.forwardAmount >= ton("2.1")) {
+        send(SendParameters{
+          to: msg.prevOwner,
+          value: 0,
+          mode: SendRemainingValue,
+          body: Transfer{
+            queryId: msg.queryId,
+            newOwner: msg.prevOwner,
+            responseDestination: msg.prevOwner,
+            customPayload: null,
+            forwardAmount: msg.forwardAmount,
+            forwardPayload: emptySlice()
+          }.toCell()
+        });
+      }
+    }
   }
 
   receive(msg: AdminWithdrawalFees) {
+    require(sender() == self.owner, "Insufficient privileges");
+
+    let profitAmount = self.profitBalance;
+
+    if (profitAmount > 0) {
+      // TODO
+      self.profitBalance = ton("0.1"); // reserve 0.1 TON
+    } else {
+      // no reserve
+      // TODO
+    }
   }
 
   receive(msg: AdminWithdrawalAllNFTs) {
+    require(sender() == self.owner, "Invalid sender");
+
+    let requiredBalance = (1 + (self.nftCounter.toUInt(32) * 0.08)) * ton();
+
+    if (self.balance < requiredBalance) {
+      // No TON for send all nft
+      // TODO
+    } else {
+      // send all nft to admin
+      for (let index in self.nfts.keys()) {
+        let nftAddress = self.nfts[index];
+        sdk.transfer(self.owner, nftAddress, 0, msg.queryId);
+      }
+
+      // clean collection NFT
+      self.nfts = map<Int as uint16, Address>{};
+      self.nftCounter = 0;
+    }
   }
 
-  get fun profit(): Int { 
+  get fun profit(): Int {
+    return self.profitBalance;
   }
   
-  get fun nfts(): map<Int as uint16, Address> { 
+  get fun nfts(): map<Int as uint16, Address> {
+    return self.nfts;
   }
 }
