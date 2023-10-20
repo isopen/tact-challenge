@@ -75,7 +75,7 @@ contract Task5 with Deployable {
     self.seed = seed; // needed to deploy multiple smart contracts copies from one admin address
     self.profitBalance = 0;
     self.nftCounter = 0;
-    self.nfts = map<Int as uint16, Address>;
+    self.nfts = emptyMap();
   }
 
   receive(msg: OwnershipAssigned) {
@@ -102,7 +102,7 @@ contract Task5 with Deployable {
       } else {
         // random-select nft for send
         let randomIndex: Int = random(0, self.nftCounter);
-        let selectedNft: Address = self.nfts[randomIndex];
+        let selectedNft: Address = self.nfts.get(randomIndex);
 
         // calc back sum
         let returnAmount = msg.forwardAmount - ton("2");
@@ -125,7 +125,7 @@ contract Task5 with Deployable {
         self.profitBalance += ton("0.1");
 
         // del selected nft
-        delete self.nfts[randomIndex];
+        self.nfts.set(randomIndex, null);
       }
     } else {
       // send-back nft
