@@ -61,13 +61,13 @@ contract Task4 with Deployable {
 
   receive(msg: OwnershipAssigned) {
     if (self.nftAddress == null) {
-      self.nftAddress = context().sender;
+      self.nftAddress = sender();
       self.owner = msg.prevOwner;
       self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
     } else {
       /* TODO ??? */
       send(SendParameters{
-        to: context().sender,
+        to: sender(),
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
