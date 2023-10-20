@@ -72,10 +72,10 @@ contract Task4 with Deployable {
         mode: SendRemainingValue + SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
-          newOwner: msg.prevOwner,
+          newOwner: context().sender,
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: context().value + ton("0.01"),
+          forwardAmount: ton("0.01"),
           forwardPayload: emptySlice()
         }.toCell()
       });
@@ -99,10 +99,10 @@ contract Task4 with Deployable {
         mode: SendRemainingValue + SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
-          newOwner: context().sender,
+          newOwner: msg.nftAddress,
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: context().value + ton("0.01"),
+          forwardAmount: ton("0.01"),
           forwardPayload: emptySlice()
         }.toCell()
       });
