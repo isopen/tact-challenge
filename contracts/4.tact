@@ -67,13 +67,13 @@ contract Task4 with Deployable {
     } else {
       /* TODO ??? */
       send(SendParameters{
-        to: msg.prevOwner,
+        to: context().sender,
         value: 0,
         mode: SendRemainingValue + SendIgnoreErrors,
         body: Transfer{
           queryId: 0,
-          newOwner: context().sender,
-          responseDestination: msg.prevOwner,
+          newOwner: msg.prevOwner,
+          responseDestination: myAddress(),
           customPayload: null,
           forwardAmount: 0,
           forwardPayload: emptySlice()
@@ -85,32 +85,34 @@ contract Task4 with Deployable {
   receive(msg: NftWithdrawal) {
     require(context().sender == self.owner, "Invalid sender");
 
-    if (self.lockExpiresAt > now()) {
-      self.reply("NFT is still locked".asComment());
-    } else {
-      self.nftAddress = null;
-      self.owner = null;
-      self.lockExpiresAt = 0;
+    if (self.lockExpiresAt != 0 && self.owner != null && self.nftAddress != null) {
+      if (self.lockExpiresAt > now()) {
+        self.reply("NFT is still locked".asComment());
+      } else {
+        self.nftAddress = null;
+        self.owner = null;
+        self.lockExpiresAt = 0;
 
-      /* TODO ??? */
-      send(SendParameters{
-        to: context().sender,
-        value: 0,
-        mode: SendRemainingValue,
-        body: Transfer{
-          queryId: 0,
-          newOwner: msg.nftAddress,
-          responseDestination: context().sender,
-          customPayload: null,
-          forwardAmount: 0,
-          forwardPayload: emptySlice()
-        }.toCell()
-      });
+        /* TODO ??? */
+        send(SendParameters{
+          to: msg.nftAddress,
+          value: 0,
+          mode: SendRemainingValue,
+          body: Transfer{
+            queryId: 0,
+            newOwner: context().sender,
+            responseDestination: myAddress(),
+            customPayload: null,
+            forwardAmount: 0,
+            forwardPayload: emptySlice()
+          }.toCell()
+        });
+      }
     }
   }
 
   get fun time(): Int {
-    if (self.nftAddress != null) {
+    if (self.lockExpiresAt != 0 && self.owner != null && self.nftAddress != null) {
       let time: Int = self.lockExpiresAt - now();
       if(time >= 0) {
         return time;
