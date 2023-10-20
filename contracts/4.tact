@@ -67,13 +67,13 @@ contract Task4 with Deployable {
     } else {
       /* TODO ??? */
       send(SendParameters{
-        to: sender(),
+        to: msg.prevOwner,
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
           newOwner: msg.prevOwner,
-          responseDestination: myAddress(),
+          responseDestination: msg.prevOwner,
           customPayload: null,
           forwardAmount: ton("0.01"),
           forwardPayload: emptySlice()
@@ -96,7 +96,7 @@ contract Task4 with Deployable {
         body: Transfer{
           queryId: 0,
           newOwner: msg.nftAddress,
-          responseDestination: myAddress(),
+          responseDestination: msg.nftAddress,
           customPayload: null,
           forwardAmount: myBalance(),
           forwardPayload: emptySlice()
