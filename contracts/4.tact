@@ -87,7 +87,7 @@ contract Task4 with Deployable {
 
     if (self.lockExpiresAt > now()) {
       self.reply("NFT is still locked".asComment());
-    } else if (self.nftAddress != null && self.owner != null) {
+    } else {
       self.nftAddress = null;
       self.owner = null;
       self.lockExpiresAt = 0;
@@ -102,7 +102,7 @@ contract Task4 with Deployable {
           newOwner: sender(),
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: myBalance(),
+          forwardAmount: ton("0.01"),
           forwardPayload: emptySlice()
         }.toCell()
       });
