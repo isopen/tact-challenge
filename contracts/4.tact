@@ -66,7 +66,7 @@ contract Task4 with Deployable {
       self.lockExpiresAt = now() + msg.forwardPayload.loadUint(32);
     } else {
       send(SendParameters{
-        to: sender(),
+        to: msg.prevOwner,
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
@@ -88,7 +88,7 @@ contract Task4 with Deployable {
       self.reply("NFT is still locked".asComment());
     } else {
       send(SendParameters{
-        to: msg.nftAddress,
+        to: self.prevOwner,
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
