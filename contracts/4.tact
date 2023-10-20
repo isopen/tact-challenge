@@ -75,7 +75,7 @@ contract Task4 with Deployable {
           newOwner: msg.prevOwner,
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: ton("0.01"),
+          forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
       });
@@ -98,7 +98,7 @@ contract Task4 with Deployable {
           newOwner: sender(),
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: ton("0.01"),
+          forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
       });
@@ -112,10 +112,10 @@ contract Task4 with Deployable {
   get fun time(): Int {
     let time: Int = self.lockExpiresAt - now();
 
-    if (time > 0) {
-      return time;
-    } else {
+    if (time < 0) {
       return 0;
+    } else {
+      return time;
     }
   }
 
