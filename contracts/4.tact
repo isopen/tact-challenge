@@ -72,10 +72,10 @@ contract Task4 with Deployable {
         mode: SendRemainingValue,
         body: Transfer{
           queryId: 0,
-          newOwner: msg.prevOwner,
+          newOwner: sender(),
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: context().value,
+          forwardAmount: 0,
           forwardPayload: emptySlice()
         }.toCell()
       });
