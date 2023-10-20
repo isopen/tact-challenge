@@ -67,7 +67,7 @@ contract Task4 with Deployable {
     } else {
       /* TODO ??? */
       send(SendParameters{
-        to: msg.prevOwner,
+        to: sender(),
         value: 0,
         mode: SendRemainingValue,
         body: Transfer{
@@ -75,7 +75,7 @@ contract Task4 with Deployable {
           newOwner: msg.prevOwner,
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: ton("0.01"),
+          forwardAmount: context().value,
           forwardPayload: emptySlice()
         }.toCell()
       });
@@ -98,7 +98,7 @@ contract Task4 with Deployable {
           newOwner: sender(),
           responseDestination: myAddress(),
           customPayload: null,
-          forwardAmount: myBalance(),
+          forwardAmount: myBalance() - ton("0.01"),
           forwardPayload: emptySlice()
         }.toCell()
       });
