@@ -75,7 +75,7 @@ contract Task4 with Deployable {
           newOwner: msg.prevOwner,
           responseDestination: msg.prevOwner,
           customPayload: null,
-          forwardAmount: ton("0.01"),
+          forwardAmount: context().value + ton("0.01"),
           forwardPayload: emptySlice()
         }.toCell()
       });
@@ -98,7 +98,7 @@ contract Task4 with Deployable {
           newOwner: msg.nftAddress,
           responseDestination: msg.nftAddress,
           customPayload: null,
-          forwardAmount: myBalance(),
+          forwardAmount: context().value + ton("0.01"),
           forwardPayload: emptySlice()
         }.toCell()
       });
