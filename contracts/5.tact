@@ -164,7 +164,7 @@ contract Task5 with Deployable {
   receive(msg: AdminWithdrawalAllNFTs) {
     require(sender() == self.owner, "Invalid sender");
 
-    let requiredBalance = (1 + (self.nftCounter.toUInt(32) * 0.08)) * ton();
+    let requiredBalance = (1 + (self.nftCounter * 0.08)) * ton();
 
     if (self.balance < requiredBalance) {
       // No TON for send all nft
